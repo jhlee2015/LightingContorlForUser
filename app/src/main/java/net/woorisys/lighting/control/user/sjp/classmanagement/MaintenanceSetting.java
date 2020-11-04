@@ -10,14 +10,19 @@ import lombok.Setter;
 @SuppressWarnings("serial")
 public class MaintenanceSetting implements Serializable {
 
-    @Getter
-    @Setter
     private String MacID;
+
     private String Area;
+
     private int Max;
+
     private int Min;
+
     private int On;
+
     private int Off;
+
     private int Maintain;
+
     private int Sensitivity;
 }

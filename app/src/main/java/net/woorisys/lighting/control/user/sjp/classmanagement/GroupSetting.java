@@ -6,16 +6,14 @@ import java.io.Serializable;
 import lombok.Getter;
 import lombok.Setter;
 
+@Getter
+@Setter
 @SuppressWarnings("serial")
 public class GroupSetting implements Serializable {
 
-    @Getter
-    @Setter
     String SectionId;
-    @Getter
-    @Setter
+
     String Transmission;
-    @Getter
-    @Setter
+
     File file;
 }

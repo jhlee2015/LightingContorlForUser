@@ -19,8 +19,8 @@ public class ConnectDongleActivity extends AppCompatActivity {
     @BindView(R.id.connect_dongle_btn)
     TextView connect_dongle_btn;
 
-   // @BindView(R.id.progressBar)
-   // CircleProgressBar progressBar;
+    // @BindView(R.id.progressBar)
+    // CircleProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,7 +29,6 @@ public class ConnectDongleActivity extends AppCompatActivity {
         ButterKnife.bind(ConnectDongleActivity.this);
 
         //progressBar.setVisibility(View.GONE);
-
     }
 
     @OnClick({R.id.connect_dongle_btn})
@@ -45,7 +44,6 @@ public class ConnectDongleActivity extends AppCompatActivity {
                 startActivity(intent);
                 finish();
                 break;
-
         }
     }
 }

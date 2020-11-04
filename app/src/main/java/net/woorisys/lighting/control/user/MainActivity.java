@@ -13,9 +13,9 @@ import net.woorisys.lighting.control.user.fragment.BaseActivity;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class MainActivity extends AppCompatActivity{
+public class MainActivity extends AppCompatActivity {
 
-    private static final String ACTION_USB_PERMISSION="com.android.example.USB_PERMISSION";
+    private static final String ACTION_USB_PERMISSION = "com.android.example.USB_PERMISSION";
 
     @BindView(R.id.light)
     ImageView lightImage;
@@ -26,11 +26,9 @@ public class MainActivity extends AppCompatActivity{
         setContentView(R.layout.activity_main);
         ButterKnife.bind(MainActivity.this);
 
-        new Handler().postDelayed(new Runnable()
-        {
+        new Handler().postDelayed(new Runnable() {
             @Override
-            public void run()
-            {
+            public void run() {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                     lightImage.setImageDrawable(getResources().getDrawable(R.drawable.bulb_on_set_with_app_name, getApplicationContext().getTheme()));
                 } else {
@@ -39,20 +37,13 @@ public class MainActivity extends AppCompatActivity{
             }
         }, 3000);// 0.5초 정도 딜레이를 준 후 시작
 
-        new Handler().postDelayed(new Runnable()
-        {
+        new Handler().postDelayed(new Runnable() {
             @Override
-            public void run()
-            {
-
-                Intent intent=new Intent(getApplicationContext(), BaseActivity.class);
+            public void run() {
+                Intent intent = new Intent(getApplicationContext(), BaseActivity.class);
                 startActivity(intent);
                 finish();
             }
         }, 3000);// 0.5초 정도 딜레이를 준 후 시작
-
-
     }
-
-
 }

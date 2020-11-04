@@ -37,7 +37,7 @@ import butterknife.ButterKnife;
 
 public class SearchActivity extends AppCompatActivity {
 
-    private final static String TAG="SJP_SearchActivity_TAG";
+    private final static String TAG = "SJP_SearchActivity_TAG";
     private File file;
 
     @BindView(R.id.page_title)
@@ -53,7 +53,7 @@ public class SearchActivity extends AppCompatActivity {
 
     AbsractCommonAdapter<Temp> tempAdapter;
 
-    List<Temp> list ;
+    List<Temp> list;
     List<String> searchlist;
 
     @Override
@@ -66,35 +66,31 @@ public class SearchActivity extends AppCompatActivity {
 
         pageTitle.setText("CSV 목록");
 
-        file=new File(Environment.getExternalStorageDirectory(),"ELGroup");
+        file = new File(Environment.getExternalStorageDirectory(), "ELGroup");
 
-        if (ContextCompat.checkSelfPermission(SearchActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE)!= PackageManager.PERMISSION_GRANTED)
-        {
+        if (ContextCompat.checkSelfPermission(SearchActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(SearchActivity.this,
                     new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
                     1);
-        }
-        else
-        {
-            CreateDirectory();
+        } else {
+            createDirectory();
         }
 
-        btn_refresh=findViewById(R.id.btn_refresh_list);
+        btn_refresh = findViewById(R.id.btn_refresh_list);
         btn_refresh.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ResetListVIew();
-                ReadDirectory();
-                Additem();
+                resetListVIew();
+                readDirectory();
+                additem();
             }
         });
 
     }
 
     // 해당 파일 안에 있는 .xml 파일을 불러온다.
-    private void Additem()
-    {
-        if(list==null)
+    private void additem() {
+        if (list == null)
             return;
 
         tempAdapter = new AbsractCommonAdapter<Temp>(SearchActivity.this, list) {
@@ -115,12 +111,12 @@ public class SearchActivity extends AppCompatActivity {
                 convertView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        File combinefile=new File(file,list.get(position).getText());
-                        Log.d(TAG,"SELECT : " +combinefile);
+                        File combinefile = new File(file, list.get(position).getText());
+                        Log.d(TAG, "SELECT : " + combinefile);
                         RememberData.getInstance().setSavefilepath(combinefile);
 
-                        Intent intent=new Intent();
-                        setResult(RESULT_OK,intent);
+                        Intent intent = new Intent();
+                        setResult(RESULT_OK, intent);
 
                         finish();
                     }
@@ -139,83 +135,70 @@ public class SearchActivity extends AppCompatActivity {
     }
 
     // 해당 파일을 생성
-    private void CreateDirectory()
-    {
-        if(!DirectoryCheck())
+    private void createDirectory() {
+        if (!directoryCheck())
             file.mkdir();
 
-        ReadDirectory();
-        Additem();
+        readDirectory();
+        additem();
         setAutoSearch();
     }
 
-    private boolean DirectoryCheck()
-    {
-        if(file.exists())
-        {
+    private boolean directoryCheck() {
+        if (file.exists()) {
             return true;
-        }
-        else
+        } else
             return false;
     }
 
-    private void ReadDirectory()
-    {
-        File[] files=file.listFiles();
+    private void readDirectory() {
+        File[] files = file.listFiles();
         list = new ArrayList<Temp>();
-        searchlist=new ArrayList<>();
+        searchlist = new ArrayList<>();
 
-        for(File file : files)
-        {
-            if(file.getName().toLowerCase().endsWith(".csv"))
-            {
-                Log.d(TAG,"FILE NAME : "+file.getName());
+        for (File file : files) {
+            if (file.getName().toLowerCase().endsWith(".csv")) {
+                Log.d(TAG, "FILE NAME : " + file.getName());
                 list.add(new Temp(file.getName()));
                 searchlist.add(file.getName());
             }
         }
     }
 
-    private void ResetListVIew()
-    {
+    private void resetListVIew() {
         list.clear();
         tempAdapter.data.clear();
         binding.searchResultListview.setAdapter(tempAdapter);
     }
 
-
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        Log.d(TAG,"PERMISSION CODE : "+requestCode+" / "+permissions);
+        Log.d(TAG, "PERMISSION CODE : " + requestCode + " / " + permissions);
 
-        if(requestCode==1)
-        {
+        if (requestCode == 1) {
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
 
-                CreateDirectory();
+                createDirectory();
 
             } else {
                 this.finish();
             }
         }
-
     }
 
-
-    private void setAutoSearch()
-    {
-        ArrayAdapter<String> adapter= new ArrayAdapter<String>(SearchActivity.this,android.R.layout.simple_dropdown_item_1line,searchlist);
-        search_edit=findViewById(R.id.search_edit);
+    private void setAutoSearch() {
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(SearchActivity.this, android.R.layout.simple_dropdown_item_1line, searchlist);
+        search_edit = findViewById(R.id.search_edit);
         search_edit.setThreshold(1);
         search_edit.setAdapter(adapter);
         search_edit.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                ResetListVIew();
+                resetListVIew();
                 list = new ArrayList<Temp>();
                 list.add(new Temp(parent.getItemAtPosition(position).toString()));
-                Additem();
+                additem();
             }
         });
         search_edit.addTextChangedListener(new TextWatcher() {
@@ -231,16 +214,12 @@ public class SearchActivity extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable s) {
-                if(s.toString()==null || s.toString().equals(null) || s.toString()=="" || s.toString().equals(""))
-                {
-                    ResetListVIew();
-                    ReadDirectory();
-                    Additem();
+                if (s.toString() == null || s.toString().equals(null) || s.toString() == "" || s.toString().equals("")) {
+                    resetListVIew();
+                    readDirectory();
+                    additem();
                 }
             }
         });
     }
-
-
-
 }

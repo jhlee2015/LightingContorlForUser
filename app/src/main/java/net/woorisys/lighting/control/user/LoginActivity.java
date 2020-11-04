@@ -14,7 +14,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import net.woorisys.lighting.control.user.R;
 import net.woorisys.lighting.control.user.fragment.BaseActivity;
 import net.woorisys.lighting.control.user.sjp.server.ResultType;
 import net.woorisys.lighting.control.user.sjp.server.ServerRequest;
@@ -25,13 +24,12 @@ import net.woorisys.lighting.control.user.sjp.sharedpreference.UserData;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-
 // BroadCastReceiver 로 연결 여부 확인
 // true 일 경우 연결 - 로그인 가능
 // false 일 경우 연결 X - 로그인 불가능
 public class LoginActivity extends AppCompatActivity implements ServerRequestResult {
 
-    private String TAG="SJP_LoginActivity_Tag";
+    private String TAG = "SJP_LoginActivity_Tag";
 
     InputMethodManager controlManager;
 
@@ -56,22 +54,17 @@ public class LoginActivity extends AppCompatActivity implements ServerRequestRes
         setContentView(R.layout.activity_login);
         ButterKnife.bind(LoginActivity.this);
 
+        controlManager = (InputMethodManager) getSystemService(Service.INPUT_METHOD_SERVICE);
 
-
-        controlManager=(InputMethodManager)getSystemService(Service.INPUT_METHOD_SERVICE);
-
-        SharedPreferenceManage sharedPreferenceManage=new SharedPreferenceManage(getApplicationContext());
-        UserData userData=sharedPreferenceManage.ReadSharedPreference();
+        SharedPreferenceManage sharedPreferenceManage = new SharedPreferenceManage(getApplicationContext());
+        UserData userData = sharedPreferenceManage.ReadSharedPreference();
 
         userId.setText(userData.getId());
         userPassword.setText(userData.getPassword());
 
-
-        if(userData.getId().isEmpty() || userData.getPassword().isEmpty())
-        {
+        if (userData.getId().isEmpty() || userData.getPassword().isEmpty()) {
             keyBoardUp();
         }
-
 
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -79,7 +72,6 @@ public class LoginActivity extends AppCompatActivity implements ServerRequestRes
                 Login();
             }
         });
-
     }
 
     @Override
@@ -91,47 +83,40 @@ public class LoginActivity extends AppCompatActivity implements ServerRequestRes
     @Override
     protected void onDestroy() {
         super.onDestroy();
-
 //        unregisterReceiver(broadcastReceiver);
     }
 
-    public void keyBoardUp(){
+    public void keyBoardUp() {
         userId.requestFocus();
         controlManager.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY);
         loginEdits.setGravity(Gravity.NO_GRAVITY);
 
-        Log.d(TAG,"MainActivity onViewClicked keyBoardUp");
-
+        Log.d(TAG, "MainActivity onViewClicked keyBoardUp");
     }
 
     // 로그인 버튼 클릭시
-    private void Login()
-    {
-        ServerRequest serverRequest=new ServerRequest(getApplicationContext());
+    private void Login() {
+        ServerRequest serverRequest = new ServerRequest(getApplicationContext());
         serverRequest.setListener(this);
-        serverRequest.Login(userId.getText().toString(),userPassword.getText().toString());
+        serverRequest.Login(userId.getText().toString(), userPassword.getText().toString());
     }
 
     @Override
-    public boolean Result(ResultType resultType, boolean result,String reason) {
-        Log.d(TAG,"RESULT TYPE : "+resultType+" , RESULT : "+result+" , RESON : "+reason);
+    public boolean Result(ResultType resultType, boolean result, String reason) {
+        Log.d(TAG, "RESULT TYPE : " + resultType + " , RESULT : " + result + " , RESON : " + reason);
 
-        if(!result)
-        {
+        if (!result) {
             errorMessageView.setVisibility(View.VISIBLE);
             errorMessageView.setText(reason);
-        }
-        else
-        {
-
-            Intent SearchActivity=new Intent(this, BaseActivity.class);
+        } else {
+            Intent SearchActivity = new Intent(this, BaseActivity.class);
             startActivity(SearchActivity);
 
-            UserData userData=new UserData();
+            UserData userData = new UserData();
             userData.setId(userId.getText().toString());
             userData.setPassword(userPassword.getText().toString());
 
-            SharedPreferenceManage sharedPreferenceManage=new SharedPreferenceManage(getApplicationContext());
+            SharedPreferenceManage sharedPreferenceManage = new SharedPreferenceManage(getApplicationContext());
             sharedPreferenceManage.WriteSharedPreference(userData);
 
             finish();

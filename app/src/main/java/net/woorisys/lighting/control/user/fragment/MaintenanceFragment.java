@@ -19,7 +19,7 @@ import net.woorisys.lighting.control.user.R;
 import net.woorisys.lighting.control.user.sjp.EditTextErrorCheck;
 import net.woorisys.lighting.control.user.sjp.EditTextErrorCheckSingle;
 import net.woorisys.lighting.control.user.sjp.classmanagement.MaintenanceSetting;
-import net.woorisys.lighting.control.user.sjp.usbManagement;
+import net.woorisys.lighting.control.user.sjp.UsbManagement;
 
 import java.util.List;
 
@@ -136,8 +136,8 @@ public class MaintenanceFragment extends Fragment {
         String macIDValue=macID.getText().toString();
         if(!macIDValue.isEmpty())
         {
-            Intent intent=new Intent(usbManagement.getAction_Maintenance_On());
-            intent.putExtra(usbManagement.getMacID(),macID.getText().toString());
+            Intent intent=new Intent(UsbManagement.getAction_Maintenance_On());
+            intent.putExtra(UsbManagement.getMacID(),macID.getText().toString());
             getActivity().sendBroadcast(intent);
         }
         else
@@ -152,8 +152,8 @@ public class MaintenanceFragment extends Fragment {
         String macIDValue=macID.getText().toString();
         if(!macIDValue.isEmpty())
         {
-            Intent intent=new Intent(usbManagement.getAction_Maintenance_Off());
-            intent.putExtra(usbManagement.getMacID(),macID.getText().toString());
+            Intent intent=new Intent(UsbManagement.getAction_Maintenance_Off());
+            intent.putExtra(UsbManagement.getMacID(),macID.getText().toString());
             getActivity().sendBroadcast(intent);
         }
         else
@@ -168,8 +168,8 @@ public class MaintenanceFragment extends Fragment {
         String macIDValue=macID.getText().toString();
         if(!macIDValue.isEmpty())
         {
-            Intent intent=new Intent(usbManagement.getAction_Maintenance_Setting_Check());
-            intent.putExtra(usbManagement.getMacID(),macID.getText().toString());
+            Intent intent=new Intent(UsbManagement.getAction_Maintenance_Setting_Check());
+            intent.putExtra(UsbManagement.getMacID(),macID.getText().toString());
             getActivity().sendBroadcast(intent);
         }
         else
@@ -255,8 +255,8 @@ public class MaintenanceFragment extends Fragment {
                 maintenanceSetting.setMaintain(send_Maintain);
                 maintenanceSetting.setSensitivity(send_Sensitivity);
 
-                Intent intent=new Intent(usbManagement.getAction_Maintenance_Single_Setting_Send());
-                intent.putExtra(usbManagement.getMaintenanceFragment_SettingConfirm(),maintenanceSetting);
+                Intent intent=new Intent(UsbManagement.getAction_Maintenance_Single_Setting_Send());
+                intent.putExtra(UsbManagement.getMaintenanceFragment_SettingConfirm(),maintenanceSetting);
                 getActivity().sendBroadcast(intent);
                 Log.d("JHLEE","maintenanceSetting :"+maintenanceSetting);
             }

@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="net.woorisys.lighting.control.user">
+
     <uses-feature android:name="android.hardware.usb.host" />
+
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
@@ -13,17 +15,17 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <receiver
-            android:name="net.woorisys.lighting.control.user.sjp.usbManagement"
+            android:name="net.woorisys.lighting.control.user.sjp.UsbManagement"
             android:enabled="true"
             android:exported="true">
             <intent-filter>
-                <action android:name="com.android.psj.setting.dimming"/>
-                <action android:name="com.android.psj.setting.group"/>
-                <action android:name="com.android.psj.setting.interrupt"/>
-                <action android:name="com.android.psj.setting.maintenance"/>
-                <action android:name="com.android.psj.setting.maintenance.dongle.channel"/>
-                <action android:name="com.android.psj.usb.init"/>
-                <action android:name="android.hardware.usb.action.USB_DEVICE_DETACHED"/>
+                <action android:name="com.android.psj.setting.dimming" />
+                <action android:name="com.android.psj.setting.group" />
+                <action android:name="com.android.psj.setting.interrupt" />
+                <action android:name="com.android.psj.setting.maintenance" />
+                <action android:name="com.android.psj.setting.maintenance.dongle.channel" />
+                <action android:name="com.android.psj.usb.init" />
+                <action android:name="android.hardware.usb.action.USB_DEVICE_DETACHED" />
             </intent-filter>
         </receiver>
 

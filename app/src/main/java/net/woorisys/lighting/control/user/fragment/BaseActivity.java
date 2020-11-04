@@ -21,33 +21,37 @@ import net.woorisys.lighting.control.user.sjp.RememberData;
 import net.woorisys.lighting.control.user.sjp.observer.FragmentListener;
 import net.woorisys.lighting.control.user.sjp.observer.FragmentValue;
 import net.woorisys.lighting.control.user.sjp.observer.ResultValue;
-import net.woorisys.lighting.control.user.sjp.usbManagement;
+import net.woorisys.lighting.control.user.sjp.UsbManagement;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class BaseActivity extends AppCompatActivity implements FragmentListener {
 
-    /** PSJ **/
+    /**
+     * PSJ
+     **/
 
     //Log Tag 구분 하기 위한 String
-    private final static String TAG="SJP_Base_TAG";
+    private final static String TAG = "SJP_Base_TAG";
 
     // 생성한 Broadcast Action 동작 시키기 위한 BroadcastReceiver 등록
-    private usbManagement broadcastReceiver;
+    private UsbManagement broadcastReceiver;
     private DimmingSettingFragment df;
 
     IntentFilter intentFilter;
     ResultValue resultValue;
 
-    /** ---------------------------------------------- **/
+    /**
+     * ----------------------------------------------
+     **/
     private long backPressedTime = 0;
 
     private final long FINISH_INTERVAL_TIME = 2000;
 
     @BindView(R.id.page_title)
     TextView pageTitle;
-//    @BindView(R.id.btn_Search)
+    //    @BindView(R.id.btn_Search)
 //    Button btnSearch;
     @BindView(R.id.txt_Path)
     TextView txt_FilePath_Whole;
@@ -61,7 +65,7 @@ public class BaseActivity extends AppCompatActivity implements FragmentListener 
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
                 case R.id.tab1:
-                    DimmingSettingFragment dimmingSettingFragment=DimmingSettingFragment.newInstance();
+                    DimmingSettingFragment dimmingSettingFragment = DimmingSettingFragment.newInstance();
                     replaceFragment(dimmingSettingFragment);
                     pageTitle.setText("디밍설정");
                     return true;
@@ -92,37 +96,36 @@ public class BaseActivity extends AppCompatActivity implements FragmentListener 
         /** PSJ **/
         //region IntentFilter
         // USB 동작 관련 BroadcastReceiver
-        intentFilter=new IntentFilter();
+        intentFilter = new IntentFilter();
         // Fragment (디밍 설정)
-        intentFilter.addAction(usbManagement.getAction_Dimming_Setting_Send_B());               //  설정 전송
+        intentFilter.addAction(UsbManagement.getAction_Dimming_Setting_Send_B());               //  설정 전송
 
         // Fragment (유지보수)
-        intentFilter.addAction(usbManagement.getAction_Maintenance_On());               //  전등 On
-        intentFilter.addAction(usbManagement.getAction_Maintenance_Off());              //  전등 Off
-        intentFilter.addAction(usbManagement.getAction_Maintenance_Setting_Check());    //  설정 확인
-        intentFilter.addAction(usbManagement.getAction_Maintenance_Single_Setting_Send()); //단일 설정
-        intentFilter.addAction(usbManagement.getAction_Maintenance_Dongle_Channel()); //동글 설정
+        intentFilter.addAction(UsbManagement.getAction_Maintenance_On());               //  전등 On
+        intentFilter.addAction(UsbManagement.getAction_Maintenance_Off());              //  전등 Off
+        intentFilter.addAction(UsbManagement.getAction_Maintenance_Setting_Check());    //  설정 확인
+        intentFilter.addAction(UsbManagement.getAction_Maintenance_Single_Setting_Send()); //단일 설정
+        intentFilter.addAction(UsbManagement.getAction_Maintenance_Dongle_Channel()); //동글 설정
 
 
         // 기타
-        intentFilter.addAction(usbManagement.getAction_Usb_Detached());                 //  Usb 분리
-        intentFilter.addAction(usbManagement.getAction_Usb_Init());                     //  Usb Initialize
-        intentFilter.addAction(usbManagement.getAction_Group_DImming_Enable_B());
-        intentFilter.addAction(usbManagement.getAction_Group_Dimming_Disable_B());
+        intentFilter.addAction(UsbManagement.getAction_Usb_Detached());                 //  Usb 분리
+        intentFilter.addAction(UsbManagement.getAction_Usb_Init());                     //  Usb Initialize
+        intentFilter.addAction(UsbManagement.getAction_Group_DImming_Enable_B());
+        intentFilter.addAction(UsbManagement.getAction_Group_Dimming_Disable_B());
         //endregion
 
 
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        BottomNavigationView navigation =findViewById(R.id.navigation);
+        BottomNavigationView navigation = findViewById(R.id.navigation);
 //        BottomNavigationViewHelper.disableShiftMode(navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         fragmentTransaction.add(R.id.fragment_container, DimmingSettingFragment.newInstance()).commit();
         pageTitle.setText("디밍설정");
 
-        String RememberPath=RememberData.getInstance().getSavefilepath().toString();
+        String RememberPath = RememberData.getInstance().getSavefilepath().toString();
 
-        if(RememberPath=="NULL" || RememberPath.equals("NULL"))
-        {
+        if (RememberPath == "NULL" || RememberPath.equals("NULL")) {
             txt_FilePath_Whole.setText("");
         }
 
@@ -161,22 +164,20 @@ public class BaseActivity extends AppCompatActivity implements FragmentListener 
     protected void onResume() {
         super.onResume();
 
-        if(broadcastReceiver==null)
-        {
-            broadcastReceiver=new usbManagement();
+        if (broadcastReceiver == null) {
+            broadcastReceiver = new UsbManagement();
             broadcastReceiver.setListener(this);
-            registerReceiver(broadcastReceiver,intentFilter);
+            registerReceiver(broadcastReceiver, intentFilter);
         }
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if(broadcastReceiver!=null)
-        {
-            Log.d(TAG,"End Broadcast Receiver In BaseActivity, UnregisterReceiver");
+        if (broadcastReceiver != null) {
+            Log.d(TAG, "End Broadcast Receiver In BaseActivity, UnregisterReceiver");
             unregisterReceiver(broadcastReceiver);
-            broadcastReceiver=null;
+            broadcastReceiver = null;
         }
 
     }
@@ -185,8 +186,7 @@ public class BaseActivity extends AppCompatActivity implements FragmentListener 
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if(resultCode==RESULT_OK && requestCode == 100)
-        {
+        if (resultCode == RESULT_OK && requestCode == 100) {
             getTxt_FilePath_Whole.setVisibility(View.VISIBLE);
             txt_FilePath_Whole.setVisibility(View.VISIBLE);
             txt_FilePath_Whole.setText(RememberData.getInstance().getSavefilepath().getName());
@@ -195,20 +195,17 @@ public class BaseActivity extends AppCompatActivity implements FragmentListener 
 
 
     @Override
-    public void Result(FragmentValue fragmentValue, boolean Result , String Message) {
-        Log.d(TAG,"FRAGMENT : "+fragmentValue+" / Result : "+Result+" / MESSAGE : "+Message);
-        if(!Result)
-        {
-            EditTextErrorCheck editTextErrorCheck=new EditTextErrorCheck();
-            editTextErrorCheck.ErrorAlertDialog(BaseActivity.this,fragmentValue+" Error","응답이 없습니다. 채널 또는 아이디를 확인 하세요");
-        }
-        else
-        {
-            EditTextErrorCheck editTextErrorCheck=new EditTextErrorCheck();
-            if(fragmentValue == FragmentValue.DimmingSetting){
-                editTextErrorCheck.ErrorAlerWaittDialog(BaseActivity.this,fragmentValue+" Success",Message);
-            }else{
-                editTextErrorCheck.ErrorAlertDialog(BaseActivity.this,fragmentValue+" Success",Message);
+    public void Result(FragmentValue fragmentValue, boolean Result, String Message) {
+        Log.d(TAG, "FRAGMENT : " + fragmentValue + " / Result : " + Result + " / MESSAGE : " + Message);
+        if (!Result) {
+            EditTextErrorCheck editTextErrorCheck = new EditTextErrorCheck();
+            editTextErrorCheck.ErrorAlertDialog(BaseActivity.this, fragmentValue + " Error", "응답이 없습니다. 채널 또는 아이디를 확인 하세요");
+        } else {
+            EditTextErrorCheck editTextErrorCheck = new EditTextErrorCheck();
+            if (fragmentValue == FragmentValue.DimmingSetting) {
+                editTextErrorCheck.ErrorAlerWaittDialog(BaseActivity.this, fragmentValue + " Success", Message);
+            } else {
+                editTextErrorCheck.ErrorAlertDialog(BaseActivity.this, fragmentValue + " Success", Message);
             }
         }
     }

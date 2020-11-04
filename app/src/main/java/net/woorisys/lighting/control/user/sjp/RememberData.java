@@ -5,10 +5,11 @@ import java.io.File;
 import lombok.Getter;
 import lombok.Setter;
 
+@Getter
+@Setter
 public class RememberData {
 
-    @Getter@Setter
-    private File savefilepath=new File("NULL");
+    private File savefilepath = new File("NULL");
 
     private static final RememberData ourInstance = new RememberData();
 

@@ -4,53 +4,49 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.Log;
 
-
 public class SharedPreferenceManage {
 
-    String TAG="SJP_SharedPreference_Tag";
+    private String TAG = "SJP_SharedPreference_Tag";
 
-    String SharedPreferenceName="UserData"; //  SharedPreference Login 정보 기억하는 Object 이름
-    String UserId="UserId";
-    String UserPassword="UserPassword";
+    private String SharedPreferenceName = "UserData"; //  SharedPreference Login 정보 기억하는 Object 이름
+    private String UserId = "UserId";
+    private String UserPassword = "UserPassword";
 
-    Context context;
+    private Context context;
 
-    private String Id;              //  사용자가 가장 마지막에 입력 하였던 Id
-    private String Password;        //  사용자가 가장 마지막에 입력 하였던 Password
+    private String id;              //  사용자가 가장 마지막에 입력 하였던 Id
+    private String password;        //  사용자가 가장 마지막에 입력 하였던 Password
 
-    SharedPreferences sharedPreferences;
+    private SharedPreferences sharedPreferences;
 
-    public SharedPreferenceManage(Context context)
-    {
-        this.context=context;
+    public SharedPreferenceManage(Context context) {
+        this.context = context;
     }
 
-    public void WriteSharedPreference(UserData userData)
-    {
-        Id=userData.getId();
-        Password=userData.getPassword();
+    public void WriteSharedPreference(UserData userData) {
+        id = userData.getId();
+        password = userData.getPassword();
 
-        sharedPreferences=context.getSharedPreferences(SharedPreferenceName,Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor=sharedPreferences.edit();
-        editor.putString(UserId,userData.getId());
-        editor.putString(UserPassword,userData.getPassword());
+        sharedPreferences = context.getSharedPreferences(SharedPreferenceName, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString(UserId, userData.getId());
+        editor.putString(UserPassword, userData.getPassword());
         editor.commit();
 
-        Log.d(TAG,"Write SharedPreference Login : "+Id+" / "+Password);
+        Log.d(TAG, "Write SharedPreference Login : " + id + " / " + password);
     }
 
-    public UserData ReadSharedPreference()
-    {
-        UserData userData=new UserData();
+    public UserData ReadSharedPreference() {
+        UserData userData = new UserData();
 
-        sharedPreferences=context.getSharedPreferences(SharedPreferenceName,Context.MODE_PRIVATE);
-        Id=sharedPreferences.getString(UserId,"");
-        Password=sharedPreferences.getString(UserPassword,"");
+        sharedPreferences = context.getSharedPreferences(SharedPreferenceName, Context.MODE_PRIVATE);
+        id = sharedPreferences.getString(UserId, "");
+        password = sharedPreferences.getString(UserPassword, "");
 
-        userData.setId(Id);
-        userData.setPassword(Password);
+        userData.setId(id);
+        userData.setPassword(password);
 
-        Log.d(TAG,"Write SharedPreference Login : "+Id+" / "+Password);
+        Log.d(TAG, "Write SharedPreference Login : " + id + " / " + password);
 
         return userData;
     }

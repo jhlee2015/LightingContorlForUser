@@ -8,7 +8,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -24,13 +23,10 @@ import android.widget.TextView;
 import net.woorisys.lighting.control.user.R;
 import net.woorisys.lighting.control.user.sjp.EditTextErrorCheck;
 import net.woorisys.lighting.control.user.sjp.classmanagement.LightSetting;
-import net.woorisys.lighting.control.user.sjp.observer.FragmentListener;
-import net.woorisys.lighting.control.user.sjp.observer.FragmentValue;
-import net.woorisys.lighting.control.user.sjp.usbManagement;
+import net.woorisys.lighting.control.user.sjp.UsbManagement;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import lombok.Setter;
 
 public class DimmingSettingFragment extends Fragment {
 
@@ -183,8 +179,8 @@ public class DimmingSettingFragment extends Fragment {
             lightSetting.setOffDimmingLight(send_Off);
             lightSetting.setSensitivityLight(2);
 
-            Intent intent=new Intent(usbManagement.getAction_Dimming_Setting_Send_B());
-            intent.putExtra(usbManagement.getDimmingSettingFragment_LightSetting(),  lightSetting);
+            Intent intent=new Intent(UsbManagement.getAction_Dimming_Setting_Send_B());
+            intent.putExtra(UsbManagement.getDimmingSettingFragment_LightSetting(),  lightSetting);
             getActivity().sendBroadcast(intent);
 
         }
@@ -256,8 +252,8 @@ public class DimmingSettingFragment extends Fragment {
             et_channel = "26";
         }
 
-        Intent intent=new Intent(usbManagement.getAction_Maintenance_Dongle_Channel());
-        intent.putExtra(usbManagement.getDongle_Channel(),et_channel);
+        Intent intent=new Intent(UsbManagement.getAction_Maintenance_Dongle_Channel());
+        intent.putExtra(UsbManagement.getDongle_Channel(),et_channel);
         getActivity().sendBroadcast(intent);
         Log.d("JHLEE","channel :"+et_channel);
     }
