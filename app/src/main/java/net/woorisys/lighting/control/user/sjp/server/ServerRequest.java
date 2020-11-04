@@ -13,9 +13,9 @@ public class ServerRequest {
     private final static String IP = "182.162.104.154";
     private final static String PORT = "8080";
 
-    Context context;
-    ApplicationController applicationController = null;
-    NetworkService networkService = null;
+    private Context context;
+    private ApplicationController applicationController = null;
+    private NetworkService networkService = null;
 
     @Setter
     private ServerRequestResult listener;

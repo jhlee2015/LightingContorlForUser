@@ -13,6 +13,6 @@
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
 
-    <string name="press_back_message">Press \'Back\' button again to exit.</string>
+    <string name="press_back_message">한번 더 누르시면 종료합니다.</string>
     <string name="title_activity_search">SearchActivity</string>
 </resources>

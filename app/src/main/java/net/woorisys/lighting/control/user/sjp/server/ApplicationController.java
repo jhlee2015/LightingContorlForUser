@@ -9,9 +9,9 @@ public class ApplicationController extends Application {
 
     private NetworkService networkService;
 
-    public NetworkService getNetworkService() {
-        return networkService;
-    }
+//    public NetworkService getNetworkService() {
+//        return networkService;
+//    }
 
     private static ApplicationController instance;
 
@@ -26,7 +26,7 @@ public class ApplicationController extends Application {
         String baseUrl = String.format("http://%s:%s/", ip, port);
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(baseUrl)
-                .addConverterFactory(GsonConverterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create()) // 받아오는 Json 구조의 데이터를 객체 형태로 변환
                 .build();
         networkService = retrofit.create(NetworkService.class);
 

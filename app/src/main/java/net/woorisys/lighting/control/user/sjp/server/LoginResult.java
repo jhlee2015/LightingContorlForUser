@@ -1,6 +1,6 @@
 package net.woorisys.lighting.control.user.sjp.server;
 
-import net.woorisys.lighting.control.user.sjp.server.returnvalue.returnlogin;
+import net.woorisys.lighting.control.user.sjp.server.returnvalue.resLogin;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -16,7 +16,7 @@ public class LoginResult {
 
     private String message;
 
-    private returnlogin result = null;
+    private resLogin result = null;
 
     public LoginResult() {
         this.returnCode = RETURN_CODE_SUCCESS;
@@ -26,11 +26,11 @@ public class LoginResult {
         this.returnCode = returnCode;
     }
 
-    public LoginResult(returnlogin object) {
+    public LoginResult(resLogin object) {
         this.result = object;
     }
 
-    public LoginResult(int returnCode, returnlogin object) {
+    public LoginResult(int returnCode, resLogin object) {
         this(returnCode);
         this.result = object;
     }

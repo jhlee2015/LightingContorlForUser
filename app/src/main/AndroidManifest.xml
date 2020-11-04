@@ -49,7 +49,7 @@
         <activity
             android:name="net.woorisys.lighting.control.user.fragment.BaseActivity"
             android:label="@string/title_activity_base"
-            android:launchMode="singleInstance"></activity>
+            android:launchMode="singleInstance"/>
         <activity
             android:name="net.woorisys.lighting.control.user.search.SearchActivity"
             android:label="@string/title_activity_search"

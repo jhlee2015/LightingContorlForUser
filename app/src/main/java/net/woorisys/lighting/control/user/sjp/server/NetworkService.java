@@ -7,15 +7,8 @@ import retrofit2.http.POST;
 
 public interface NetworkService {
 
-    String onepass = "onepass/rest";
-
     @FormUrlEncoded
-    @POST("/" + onepass + "/login")
-    Call<LoginResult> Login
-            (
-                    @Field("userId") String userId,
-                    @Field("password") String password
-            );
-
+    @POST("/onepass/rest/login")
+    Call<LoginResult> Login(@Field("userId") String userId, @Field("password") String password);
 
 }

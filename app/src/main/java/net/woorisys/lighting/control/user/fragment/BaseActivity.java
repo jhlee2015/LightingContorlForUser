@@ -28,10 +28,6 @@ import butterknife.ButterKnife;
 
 public class BaseActivity extends AppCompatActivity implements FragmentListener {
 
-    /**
-     * PSJ
-     **/
-
     //Log Tag 구분 하기 위한 String
     private final static String TAG = "SJP_Base_TAG";
 
@@ -93,7 +89,6 @@ public class BaseActivity extends AppCompatActivity implements FragmentListener 
 
         ButterKnife.bind(this);
 
-        /** PSJ **/
         //region IntentFilter
         // USB 동작 관련 BroadcastReceiver
         intentFilter = new IntentFilter();
@@ -107,14 +102,12 @@ public class BaseActivity extends AppCompatActivity implements FragmentListener 
         intentFilter.addAction(UsbManagement.getAction_Maintenance_Single_Setting_Send()); //단일 설정
         intentFilter.addAction(UsbManagement.getAction_Maintenance_Dongle_Channel()); //동글 설정
 
-
         // 기타
         intentFilter.addAction(UsbManagement.getAction_Usb_Detached());                 //  Usb 분리
         intentFilter.addAction(UsbManagement.getAction_Usb_Init());                     //  Usb Initialize
         intentFilter.addAction(UsbManagement.getAction_Group_DImming_Enable_B());
         intentFilter.addAction(UsbManagement.getAction_Group_Dimming_Disable_B());
         //endregion
-
 
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         BottomNavigationView navigation = findViewById(R.id.navigation);
@@ -138,7 +131,6 @@ public class BaseActivity extends AppCompatActivity implements FragmentListener 
 //                startActivityForResult(intent,100);
 //            }
 //        });
-
     }
 
     private void replaceFragment(Fragment fragment) {
