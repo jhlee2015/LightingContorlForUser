@@ -14,15 +14,15 @@ public class Floor {
 
     @SerializedName("id")
     @Expose
-    int id;
+    private long id;
 
     /** 지하 층수 명 */
     @SerializedName("name")
     @Expose
-    String name;
+    private String name;
 
     /** 채널 번호 */
     @SerializedName("channel")
     @Expose
-    int channel;
+    private int channel;
 }

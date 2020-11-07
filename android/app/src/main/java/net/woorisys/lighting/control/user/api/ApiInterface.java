@@ -2,24 +2,26 @@ package net.woorisys.lighting.control.user.api;
 
 import net.woorisys.lighting.control.user.domain.Apartment;
 import net.woorisys.lighting.control.user.domain.City;
-import net.woorisys.lighting.control.user.sjp.server.LoginResult;
+
+import java.util.HashMap;
+import java.util.List;
 
 import retrofit2.Call;
-import retrofit2.http.Field;
+import retrofit2.http.FieldMap;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.Query;
 
 public interface ApiInterface {
 
     @GET("api/city/list")
-    Call<City> getCityList();
+    Call<List<City>> getCityList();
 
     @GET("api/apartment/list")
-    Call<Apartment> getApartmentList(@Field("cityId") int cityId);
+    Call<List<Apartment>> getApartmentList(@Query(value = "cityId", encoded = true) int cityId);
 
+    @FormUrlEncoded
     @POST("api/login")
-    Call<LoginResult> login(@Field("name") String name, @Field("password") String password);
-
-
+    Call<Boolean> login(@FieldMap HashMap<String, Object> param);
 }

@@ -14,14 +14,14 @@ public class Apartment {
 
     @SerializedName("id")
     @Expose
-    int id;
+    private long id;
 
     /** 단지 명 */
     @SerializedName("name")
     @Expose
-    String name;
+    private String name;
 
     @SerializedName("cityId")
     @Expose
-    int cityId;
+    private int cityId;
 }

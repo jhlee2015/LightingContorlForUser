@@ -14,9 +14,9 @@ public class City {
 
     @SerializedName("id")
     @Expose
-    int id;
+    private int id;
 
     @SerializedName("name")
     @Expose
-    String name;
+    private String name;
 }

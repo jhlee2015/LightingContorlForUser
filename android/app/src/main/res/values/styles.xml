@@ -28,7 +28,15 @@
     </style>
 
     <style name="CustomTextView" parent="android:Widget.TextView">
-
         <item name="android:colorControlNormal">@color/white</item>
-     </style>
+    </style>
+
+    <style name="SpinnerDivideStyle" parent="android:style/Widget.ListView.DropDown">
+        <item name="android:divider">#BDBDBD</item> <!-- divider 색 -->
+        <item name="android:dividerHeight">1dp</item> <!-- divider 높이 -->
+    </style>
+
+    <style name="SpinnerTheme" parent="AppTheme">
+        <item name="android:dropDownListViewStyle">@style/SpinnerDivideStyle</item>
+    </style>
 </resources>

@@ -16,11 +16,10 @@ public class HttpClient {
     public static Retrofit getRetrofit() {
         if (retrofit == null) {
             String baseUrl = String.format("http://%s:%s/lighting/", IP, PORT);
-            Log.d("HttpClient", baseUrl);
-            Retrofit.Builder builder = new Retrofit.Builder();
-            builder.baseUrl(baseUrl);
-            builder.addConverterFactory(GsonConverterFactory.create());  // 받아오는 Json 구조의 데이터를 객체 형태로 변환
 
+            Retrofit.Builder builder = new Retrofit.Builder()
+                .baseUrl(baseUrl)
+                .addConverterFactory(GsonConverterFactory.create());  // 받아오는 Json 구조의 데이터를 객체 형태로 변환
             retrofit = builder.build();
         }
 
