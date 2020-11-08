@@ -49,7 +49,7 @@
                 android:id="@+id/citySpinner"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
-                android:background="@drawable/edittext_bg"
+                android:background="@drawable/spinner_bg"
                 android:spinnerMode="dialog"
                 android:theme="@style/SpinnerTheme" />
 
@@ -58,7 +58,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:layout_marginTop="16dp"
-                android:background="@drawable/edittext_bg"
+                android:background="@drawable/spinner_bg"
                 android:spinnerMode="dialog"
                 android:theme="@style/SpinnerTheme" />
 
@@ -71,8 +71,7 @@
                 android:hint="비밀번호"
                 android:imeOptions="actionDone"
                 android:inputType="textPassword"
-                android:padding="5dp"
-                android:paddingLeft="50dp"
+                android:paddingLeft="16dp"
                 android:singleLine="true" />
 
             <Button

@@ -1,13 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="net.woorisys.lighting.control.user.fragment.DimmingSettingFragment">
-
-    <!-- TODO: Update blank fragment layout -->
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -202,7 +199,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:orientation="horizontal"/>
+                android:orientation="horizontal" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -232,12 +229,11 @@
                     android:id="@+id/btn_channel_send"
                     android:layout_width="60dp"
                     android:layout_height="30dp"
+                    android:layout_marginLeft="12dp"
                     android:background="@drawable/rounded_yellow_rect_radius_20"
                     android:text="설정"
                     android:textColor="@color/common_text_color" />
             </LinearLayout>
-
-
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -253,7 +249,6 @@
                     android:background="@drawable/rounded_yellow_rect_radius_20"
                     android:text="설정전송"
                     android:textColor="@color/common_text_color" />
-
             </LinearLayout>
 
             <LinearLayout
@@ -296,13 +291,8 @@
                         android:background="@drawable/rounded_yellow_rect_radius_20"
                         android:text="Disable"
                         android:textColor="@color/common_text_color" />
-
                 </LinearLayout>
             </LinearLayout>
-
         </LinearLayout>
-
-
     </RelativeLayout>
-
 </FrameLayout>

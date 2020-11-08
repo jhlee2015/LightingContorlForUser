@@ -1,5 +1,6 @@
 package net.woorisys.lighting.control.user;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -18,6 +19,7 @@ import net.woorisys.lighting.control.user.api.ApiInterface;
 import net.woorisys.lighting.control.user.api.HttpClient;
 import net.woorisys.lighting.control.user.domain.Apartment;
 import net.woorisys.lighting.control.user.domain.City;
+import net.woorisys.lighting.control.user.fragment.BaseActivity;
 
 import java.util.HashMap;
 import java.util.List;
@@ -135,6 +137,10 @@ public class LoginActivity extends AppCompatActivity {
                 public void onResponse(Call<Boolean> call, Response<Boolean> response) {
                     if (response.body()) {
                         Toast.makeText(getApplicationContext(), "로그인 성공하였습니다.", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(getApplicationContext(), BaseActivity.class);
+                        startActivity(intent);
+                        overridePendingTransition(R.anim.fadein, R.anim.fadeout);
+                        finish();
                     }
                 }
 
