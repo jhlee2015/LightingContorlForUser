@@ -20,6 +20,7 @@ import net.woorisys.lighting.control.user.api.HttpClient;
 import net.woorisys.lighting.control.user.domain.Apartment;
 import net.woorisys.lighting.control.user.domain.City;
 import net.woorisys.lighting.control.user.fragment.BaseActivity;
+import net.woorisys.lighting.control.user.manager.PreferenceManager;
 
 import java.util.HashMap;
 import java.util.List;
@@ -64,7 +65,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 City city = (City) citySpinner.getItemAtPosition(position);
-                Toast.makeText(getApplicationContext(), city.getName() + "이 선택되었습니다.", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(getApplicationContext(), city.getName() + "이 선택되었습니다.", Toast.LENGTH_SHORT).show();
                 getApartmentList(city.getId());
             }
 
@@ -72,17 +73,17 @@ public class LoginActivity extends AppCompatActivity {
             public void onNothingSelected(AdapterView<?> parent) { }
         });
 
-        apartmentSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(getApplicationContext(),
-                        ((Apartment) apartmentSpinner.getItemAtPosition(position)).getName() + "이 선택되었습니다.",
-                        Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) { }
-        });
+//        apartmentSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+//            @Override
+//            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+//                Toast.makeText(getApplicationContext(),
+//                        ((Apartment) apartmentSpinner.getItemAtPosition(position)).getName() + "이 선택되었습니다.",
+//                        Toast.LENGTH_SHORT).show();
+//            }
+//
+//            @Override
+//            public void onNothingSelected(AdapterView<?> parent) { }
+//        });
     }
 
     private void getCityList() {
@@ -90,18 +91,17 @@ public class LoginActivity extends AppCompatActivity {
         api.getCityList().enqueue(new Callback<List<City>>() {
             @Override
             public void onResponse(Call<List<City>> call, Response<List<City>> response) {
-                Toast.makeText(getApplicationContext(), "도시 데이터 조회하였습니다.", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(getApplicationContext(), "도시 데이터 조회하였습니다.", Toast.LENGTH_SHORT).show();
 
                 List<City> cities = response.body();
                 cityAdapter = new CityAdapter(getApplicationContext(), cities);
                 citySpinner.setAdapter(cityAdapter);
-
-//                getApartmentList(cities.get(0).getId());
             }
 
             @Override
             public void onFailure(Call<List<City>> call, Throwable t) {
                 Log.d("LoginActivity", t.getMessage());
+                Toast.makeText(getApplicationContext(), "도시 데이터 조회를 실패하였습니다.", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -110,7 +110,7 @@ public class LoginActivity extends AppCompatActivity {
         api.getApartmentList(cityId).enqueue(new Callback<List<Apartment>>() {
             @Override
             public void onResponse(Call<List<Apartment>> call, Response<List<Apartment>> response) {
-                Toast.makeText(getApplicationContext(), "단지 데이터 조회하였습니다.", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(getApplicationContext(), "단지 데이터 조회하였습니다.", Toast.LENGTH_SHORT).show();
 
                 apartmentAdapter = new ApartmentAdapter(getApplicationContext(), response.body());
                 apartmentSpinner.setAdapter(apartmentAdapter);
@@ -119,6 +119,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onFailure(Call<List<Apartment>> call, Throwable t) {
                 Log.d("LoginActivity", t.getMessage());
+                Toast.makeText(getApplicationContext(), "단지 데이터 조회를 실패하였습니다.", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -127,6 +128,10 @@ public class LoginActivity extends AppCompatActivity {
         Apartment apartment = (Apartment)apartmentSpinner.getSelectedItem();
         if (apartment != null) {
             String password = passwordTxt.getText().toString();
+            if (password.isEmpty()) {
+                Toast.makeText(getApplicationContext(), "비밀번호를 입력하세요!", Toast.LENGTH_SHORT).show();
+                return;
+            }
 
             HashMap<String, Object> params = new HashMap<>();
             params.put("id", apartment.getId());
@@ -136,8 +141,11 @@ public class LoginActivity extends AppCompatActivity {
                 @Override
                 public void onResponse(Call<Boolean> call, Response<Boolean> response) {
                     if (response.body()) {
-                        Toast.makeText(getApplicationContext(), "로그인 성공하였습니다.", Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(getApplicationContext(), BaseActivity.class);
+//                        Toast.makeText(getApplicationContext(), "로그인 성공하였습니다.", Toast.LENGTH_SHORT).show();
+
+                        PreferenceManager.setLong(getApplicationContext(), "apartmentId", apartment.getId());
+
+                        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                         startActivity(intent);
                         overridePendingTransition(R.anim.fadein, R.anim.fadeout);
                         finish();
@@ -147,8 +155,11 @@ public class LoginActivity extends AppCompatActivity {
                 @Override
                 public void onFailure(Call<Boolean> call, Throwable t) {
                     Log.d("LoginActivity", t.getMessage());
+                    Toast.makeText(getApplicationContext(), "로그인 실패하였습니다.", Toast.LENGTH_SHORT).show();
                 }
             });
+        } else {
+            Toast.makeText(getApplicationContext(), "단지를 선택하세요!", Toast.LENGTH_SHORT).show();
         }
     }
 }

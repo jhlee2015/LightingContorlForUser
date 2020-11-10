@@ -10,7 +10,7 @@
                     <padding android:bottom="3dp" android:left="3dp" android:right="3dp" android:top="3dp" />
                 </shape>
             </item>
-            <item android:right="6dp" android:top="10dp" android:left="6dp">
+            <item android:right="8dp" android:top="12dp">
                 <bitmap android:gravity="top|right" android:src="@drawable/rectangle" />
             </item>
         </layer-list>

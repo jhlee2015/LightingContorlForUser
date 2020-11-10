@@ -5,34 +5,25 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background_color"
-    tools:context=".LoginActivity2">
+    tools:context=".LoginActivity">
 
     <LinearLayout
-        android:id="@+id/loginForm"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_height="match_parent"
+        android:gravity="center_horizontal">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_gravity="center_vertical|center_horizontal"
-            android:layout_weight="1"
-            android:gravity="center_vertical|center_horizontal">
-
-            <ImageView
-                android:id="@+id/light_image"
-                android:layout_width="95dp"
-                android:layout_height="373dp"
-                android:src="@drawable/bulb_off_set_with_app_name" />
-        </LinearLayout>
+        <ImageView
+            android:id="@+id/light_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/bulb_off_set_with_app_name" />
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="32dp"
+        android:layout_marginBottom="24dp"
         android:gravity="center_horizontal"
         android:orientation="vertical">
 
@@ -41,15 +32,15 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginLeft="40dp"
-            android:layout_marginTop="200dp"
             android:layout_marginRight="40dp"
+            android:layout_marginBottom="40dp"
             android:orientation="vertical">
 
             <Spinner
                 android:id="@+id/citySpinner"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
-                android:background="@drawable/spinner_bg"
+                android:background="@drawable/spinner_big_bg"
                 android:spinnerMode="dialog"
                 android:theme="@style/SpinnerTheme" />
 
@@ -58,7 +49,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:layout_marginTop="16dp"
-                android:background="@drawable/spinner_bg"
+                android:background="@drawable/spinner_big_bg"
                 android:spinnerMode="dialog"
                 android:theme="@style/SpinnerTheme" />
 
@@ -88,7 +79,6 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
             android:text="Copyrightⓒ WOORI SYSTEM All Rights Reserved"
             android:textColor="@color/copyright" />
     </LinearLayout>

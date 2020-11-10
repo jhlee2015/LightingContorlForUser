@@ -2,6 +2,7 @@ package net.woorisys.lighting.control.user.api;
 
 import net.woorisys.lighting.control.user.domain.Apartment;
 import net.woorisys.lighting.control.user.domain.City;
+import net.woorisys.lighting.control.user.domain.Floor;
 
 import java.util.HashMap;
 import java.util.List;
@@ -20,6 +21,9 @@ public interface ApiInterface {
 
     @GET("api/apartment/list")
     Call<List<Apartment>> getApartmentList(@Query(value = "cityId", encoded = true) int cityId);
+
+    @GET("api/floor/list")
+    Call<List<Floor>> getFloorList(@Query(value = "apartmentId", encoded = true) long apartmentId);
 
     @FormUrlEncoded
     @POST("api/login")

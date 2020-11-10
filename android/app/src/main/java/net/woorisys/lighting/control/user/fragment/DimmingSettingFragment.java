@@ -19,45 +19,59 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import net.woorisys.lighting.control.user.R;
+import net.woorisys.lighting.control.user.adapter.CityAdapter;
+import net.woorisys.lighting.control.user.adapter.FloorAdapter;
+import net.woorisys.lighting.control.user.api.ApiInterface;
+import net.woorisys.lighting.control.user.api.HttpClient;
+import net.woorisys.lighting.control.user.domain.City;
+import net.woorisys.lighting.control.user.domain.Floor;
+import net.woorisys.lighting.control.user.manager.PreferenceManager;
 import net.woorisys.lighting.control.user.sjp.EditTextErrorCheck;
 import net.woorisys.lighting.control.user.sjp.classmanagement.LightSetting;
 import net.woorisys.lighting.control.user.sjp.UsbManagement;
 
+import java.util.List;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class DimmingSettingFragment extends Fragment {
 
-    private final static String SharedPreferenceSP = "DimmingSetting";
-
-    //region UI
-    @BindView(R.id.page_title)
-    TextView pageTitle;
-    @BindView(R.id.channel_id_sp)
-    Spinner channel_sp;
+/*    @BindView(R.id.page_title)
+    TextView pageTitle;*/
     @BindView(R.id.et_maxLight)
-    EditText et_maxLight;
+    EditText maxLightEdit;
     @BindView(R.id.et_minLight)
-    EditText et_minLight;
+    EditText minLightEdit;
     @BindView(R.id.et_onDemming)
-    EditText et_onDemming;
+    EditText onDemmingEdit;
     @BindView(R.id.et_offDeming)
-    EditText et_offDemming;
+    EditText offDemmingEdit;
     @BindView(R.id.et_maintainDemming)
-    EditText et_maintainDemming;
+    EditText maintainDemmingEdit;
     @BindView(R.id.btn_Setting_Send)
-    Button btn_Setting_Send;
+    Button settingSendBtn;
     @BindView(R.id.btn_channel_send)
-    Button btn_Channel_Send;
-
-    private final static String TAG = "SJP_DIMMING_TAG";  //  Dimming Setting Fragment Tag
+    Button channelSendBtn;
+    @BindView(R.id.channel_id_sp)
+    Spinner channelSpinner;
 
     private EditTextErrorCheck errorCheck;
 
-    //아파트
-    String[] channel_Id = {"지하1층", "지하2층", "지하3층"};
+    private final static String SharedPreferenceSP = "DimmingSetting";
+    private final static String MAX = "MAX";
+    private final static String MIN = "MIN";
+    private final static String MAINTAIN = "MAINTAIN";
+    private final static String OFF = "OFF";
+    private final static String ON = "ON";
+    private final static String SQUENCE = "SQUENCE";
+    private final static String CHANNEL = "CHANNEL";
 
     public static DimmingSettingFragment newInstance() {
         return new DimmingSettingFragment();
@@ -76,47 +90,53 @@ public class DimmingSettingFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_demming_setting, container, false);
         ButterKnife.bind(this, view);
-        pageTitle.setText("디밍 설정");
+//        pageTitle.setText("디밍 설정");
 
-        SJ_UISetting();
+        getFloorList();
+        setUISetting();
 
         return view;
     }
 
-    private void SJ_UISetting() {
+    private void getFloorList() {
+        long apartmentId = PreferenceManager.getLong(getContext(), "apartmentId");
+        if (apartmentId != -1L) {
+            ApiInterface api = HttpClient.getRetrofit().create(ApiInterface.class);
+            api.getFloorList(apartmentId).enqueue(new Callback<List<Floor>>() {
+                @Override
+                public void onResponse(Call<List<Floor>> call, Response<List<Floor>> response) {
+                    List<Floor> floors = response.body();
+                    FloorAdapter floorAdapter = new FloorAdapter(getContext(), floors);
+                    channelSpinner.setAdapter(floorAdapter);
+                }
 
+                @Override
+                public void onFailure(Call<List<Floor>> call, Throwable t) {
+                    Log.d("LoginActivity", t.getMessage());
+                    Toast.makeText(getContext(), "층 데이터 조회를 실패하였습니다.", Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
+    }
+
+    private void setUISetting() {
         errorCheck = new EditTextErrorCheck();
 
-        ArrayAdapter<String> channel_id = new ArrayAdapter<>(getContext(), android.R.layout.simple_dropdown_item_1line, channel_Id);
+        settingSendBtn.setOnClickListener(v -> settingSend());
 
-        channel_sp.setAdapter(channel_id);
-
-        btn_Setting_Send.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                SettingSend();
-            }
-        });
-
-        SharedPreference();
+        getSharedPreference();
 
         //동글 채널 설정 버튼클릭
-        btn_Channel_Send.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                DongleChannelSetting();
-            }
-        });
-
+        channelSendBtn.setOnClickListener(v -> dongleChannelSetting());
     }
 
     // 설정 전송
-    private void SettingSend() {
-        String MAX = et_maxLight.getText().toString();
-        String MIN = et_minLight.getText().toString();
-        String ON = et_onDemming.getText().toString();
-        String OFF = et_offDemming.getText().toString();
-        String MainTain = et_maintainDemming.getText().toString();
+    private void settingSend() {
+        String MAX = maxLightEdit.getText().toString();
+        String MIN = minLightEdit.getText().toString();
+        String ON = onDemmingEdit.getText().toString();
+        String OFF = offDemmingEdit.getText().toString();
+        String MainTain = maintainDemmingEdit.getText().toString();
         String Area = "255";
 
         String ErrorMessage = "";
@@ -154,94 +174,70 @@ public class DimmingSettingFragment extends Fragment {
             builder.show();
         } else {
             // USB 로 Data 보내기
-            int send_Max = Integer.valueOf(MAX);
-            int send_Min = Integer.valueOf(MIN);
-            int send_On = Integer.valueOf(ON);
-            int send_Off = Integer.valueOf(OFF);
-            int send_Maintain = Integer.valueOf(MainTain);
+            int sendMax = Integer.valueOf(MAX);
+            int sendMin = Integer.valueOf(MIN);
+            int sendOn = Integer.valueOf(ON);
+            int sendOff = Integer.valueOf(OFF);
+            int sendMaintain = Integer.valueOf(MainTain);
 
 
             LightSetting lightSetting = new LightSetting();
-            lightSetting.setMaxLight(send_Max);
-            lightSetting.setMinLight(send_Min);
-            lightSetting.setMaintainLight(send_Maintain);
-            lightSetting.setOnDimmingLight(send_On);
-            lightSetting.setOffDimmingLight(send_Off);
+            lightSetting.setMaxLight(sendMax);
+            lightSetting.setMinLight(sendMin);
+            lightSetting.setMaintainLight(sendMaintain);
+            lightSetting.setOnDimmingLight(sendOn);
+            lightSetting.setOffDimmingLight(sendOff);
             lightSetting.setSensitivityLight(2);
 
             Intent intent = new Intent(UsbManagement.getAction_Dimming_Setting_Send_B());
             intent.putExtra(UsbManagement.getDimmingSettingFragment_LightSetting(), lightSetting);
             getActivity().sendBroadcast(intent);
-
         }
     }
 
-    private final static String MAX = "MAX";
-    private final static String MIN = "MIN";
-    private final static String MAINTAIN = "MAINTAIN";
-    private final static String OFF = "OFF";
-    private final static String ON = "ON";
-    private final static String SQUENCE = "SQUENCE";
-    private final static String CHANNEL = "CHANNEL";
-
-    private void SharedPreference() {
+    private void getSharedPreference() {
         SharedPreferences sharedPreference = getContext().getSharedPreferences(SharedPreferenceSP, Context.MODE_PRIVATE);
-
         String MaxLight = sharedPreference.getString(MAX, "100");
         String MinLight = sharedPreference.getString(MIN, "20");
         String MaintainLight = sharedPreference.getString(MAINTAIN, "5");
         String OffLight = sharedPreference.getString(OFF, "2");
         String OnLight = sharedPreference.getString(ON, "1");
 
-        et_maxLight.setText(MaxLight);
-        et_minLight.setText(MinLight);
-        et_maintainDemming.setText(MaintainLight);
-        et_offDemming.setText(OffLight);
-        et_onDemming.setText(OnLight);
-
+        maxLightEdit.setText(MaxLight);
+        minLightEdit.setText(MinLight);
+        onDemmingEdit.setText(OnLight);
+        offDemmingEdit.setText(OffLight);
+        maintainDemmingEdit.setText(MaintainLight);
     }
 
+    private void saveSharedPreference() {
+        SharedPreferences sharedPreferences = getContext().getSharedPreferences(SharedPreferenceSP, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString(MAX, maxLightEdit.getText().toString());
+        editor.putString(MIN, minLightEdit.getText().toString());
+        editor.putString(MAINTAIN, maintainDemmingEdit.getText().toString());
+        editor.putString(OFF, offDemmingEdit.getText().toString());
+        editor.putString(ON, onDemmingEdit.getText().toString());
+
+        Floor floor = (Floor) channelSpinner.getSelectedItem();
+        editor.putInt(CHANNEL, floor.getChannel());
+        editor.commit();
+    }
+
+    private void dongleChannelSetting() {
+        Floor floor = (Floor) channelSpinner.getSelectedItem();
+        String channel = String.valueOf(floor.getChannel());
+
+        Toast.makeText(getContext(), "채널 : " + channel, Toast.LENGTH_SHORT).show();
+
+        Intent intent = new Intent(UsbManagement.getAction_Maintenance_Dongle_Channel());
+        intent.putExtra(UsbManagement.getDongle_Channel(), channel);
+        getActivity().sendBroadcast(intent);
+    }
 
     @Override
     public void onStop() {
         super.onStop();
-        SaveSharedPreference();
-    }
-
-    private void SaveSharedPreference() {
-        SharedPreferences sharedPreferences = getContext().getSharedPreferences(SharedPreferenceSP, Context.MODE_PRIVATE);
-
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString(MAX, et_maxLight.getText().toString());
-        editor.putString(MIN, et_minLight.getText().toString());
-        editor.putString(MAINTAIN, et_maintainDemming.getText().toString());
-        editor.putString(OFF, et_offDemming.getText().toString());
-        editor.putString(ON, et_onDemming.getText().toString());
-        editor.putInt(CHANNEL, channel_sp.getSelectedItemPosition());
-
-        editor.commit();
-    }
-
-    private void DongleChannelSetting() {
-        String Mac = "0001";
-        String et_channel = "15";
-        int sel_num = channel_sp.getSelectedItemPosition();
-
-        //오피스텔
-        if (sel_num == 0) // 지하1층
-        {
-            et_channel = "11";
-        } else if (sel_num == 1) // 지하2층
-        {
-            et_channel = "15";
-        } else if (sel_num == 2) // 지하3층
-        {
-            et_channel = "26";
-        }
-
-        Intent intent = new Intent(UsbManagement.getAction_Maintenance_Dongle_Channel());
-        intent.putExtra(UsbManagement.getDongle_Channel(), et_channel);
-        getActivity().sendBroadcast(intent);
-        Log.d("JHLEE", "channel :" + et_channel);
+        saveSharedPreference();
     }
 }

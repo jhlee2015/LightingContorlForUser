@@ -85,7 +85,6 @@ public class SearchActivity extends AppCompatActivity {
                 additem();
             }
         });
-
     }
 
     // 해당 파일 안에 있는 .xml 파일을 불러온다.

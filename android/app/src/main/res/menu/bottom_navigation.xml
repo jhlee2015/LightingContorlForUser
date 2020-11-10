@@ -11,13 +11,13 @@
         android:icon="@drawable/ic_notifications_black_24dp"
         android:title="@string/maintenance" />
     <!--    <item-->
-<!--        android:id="@+id/tab3"-->
-<!--        android:icon="@drawable/ic_notifications_black_24dp"-->
-<!--        android:title="@string/maintenance" />-->
+    <!--        android:id="@+id/tab3"-->
+    <!--        android:icon="@drawable/ic_notifications_black_24dp"-->
+    <!--        android:title="@string/maintenance" />-->
 
-<!--    <item-->
-<!--        android:id="@+id/tab4"-->
-<!--        android:icon="@drawable/ic_notifications_black_24dp"-->
-<!--        android:title="@string/interrupt" />-->
+    <!--    <item-->
+    <!--        android:id="@+id/tab4"-->
+    <!--        android:icon="@drawable/ic_notifications_black_24dp"-->
+    <!--        android:title="@string/interrupt" />-->
 
 </menu>

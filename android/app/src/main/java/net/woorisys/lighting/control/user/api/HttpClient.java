@@ -9,7 +9,7 @@ public class HttpClient {
 
     private static Retrofit retrofit;
 
-    private final static String IP = "192.168.219.105";
+    private final static String IP = "119.70.16.76";
     private final static String PORT = "8080";
 
     // Http 통신을 위한 Retrofit 객체반환
