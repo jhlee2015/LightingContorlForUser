@@ -43,8 +43,6 @@ import retrofit2.Response;
 
 public class DimmingSettingFragment extends Fragment {
 
-/*    @BindView(R.id.page_title)
-    TextView pageTitle;*/
     @BindView(R.id.et_maxLight)
     EditText maxLightEdit;
     @BindView(R.id.et_minLight)
@@ -90,7 +88,6 @@ public class DimmingSettingFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_demming_setting, container, false);
         ButterKnife.bind(this, view);
-//        pageTitle.setText("디밍 설정");
 
         getFloorList();
         setUISetting();

@@ -63,8 +63,8 @@
                             android:id="@+id/btn_maintain_off"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
-                            android:layout_marginLeft="2dp"
-                            android:layout_marginRight="2dp"
+                            android:layout_marginLeft="4dp"
+                            android:layout_marginRight="4dp"
                             android:layout_weight="1"
                             android:background="@drawable/rounded_yellow_rect_radius_20"
                             android:text="MIN"
@@ -110,7 +110,7 @@
                         android:gravity="center_vertical"
                         android:text="최대밝기"
                         android:textColor="@color/white"
-                        android:textSize="18sp"
+                        android:textSize="18dp"
                         android:textStyle="bold" />
 
                     <EditText
@@ -138,7 +138,7 @@
                         android:gravity="center_vertical"
                         android:text="최소밝기"
                         android:textColor="@color/white"
-                        android:textSize="18sp"
+                        android:textSize="18dp"
                         android:textStyle="bold" />
 
                     <EditText
@@ -164,9 +164,37 @@
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:gravity="center_vertical"
+                        android:text="디밍유지"
+                        android:textColor="@color/white"
+                        android:textSize="18dp"
+                        android:textStyle="bold" />
+
+                    <EditText
+                        android:id="@+id/et_Maintain_LightMaintain"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:backgroundTint="@color/common_yellow"
+                        android:ems="10"
+                        android:inputType="number"
+                        android:text="5"
+                        android:textColor="@color/white" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical"
                         android:text="ON 디밍"
                         android:textColor="@color/white"
-                        android:textSize="18sp"
+                        android:textSize="18dp"
                         android:textStyle="bold" />
 
                     <EditText
@@ -194,7 +222,7 @@
                         android:gravity="center_vertical"
                         android:text="OFF 디밍"
                         android:textColor="@color/white"
-                        android:textSize="18sp"
+                        android:textSize="18dp"
                         android:textStyle="bold" />
 
                     <EditText
@@ -220,37 +248,9 @@
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:gravity="center_vertical"
-                        android:text="디밍유지"
-                        android:textColor="@color/white"
-                        android:textSize="18sp"
-                        android:textStyle="bold" />
-
-                    <EditText
-                        android:id="@+id/et_Maintain_LightMaintain"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:backgroundTint="@color/common_yellow"
-                        android:ems="10"
-                        android:inputType="number"
-                        android:text="5"
-                        android:textColor="@color/white" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:gravity="center_vertical"
                         android:text="감도수"
                         android:textColor="@color/white"
-                        android:textSize="18sp"
+                        android:textSize="18dp"
                         android:textStyle="bold" />
 
                     <Spinner

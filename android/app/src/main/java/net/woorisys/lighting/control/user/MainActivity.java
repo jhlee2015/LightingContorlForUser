@@ -18,11 +18,13 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import net.woorisys.lighting.control.user.fragment.DimmingSettingFragment;
 import net.woorisys.lighting.control.user.fragment.MaintenanceFragment;
+import net.woorisys.lighting.control.user.manager.PreferenceManager;
 import net.woorisys.lighting.control.user.sjp.EditTextErrorCheck;
 import net.woorisys.lighting.control.user.sjp.RememberData;
 import net.woorisys.lighting.control.user.sjp.UsbManagement;
@@ -38,7 +40,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private final static String TAG = "MainActivity";
 
     @BindView(R.id.page_title)
-    TextView pageTitle;
+    TextView pageTitleText;
     @BindView(R.id.toolbar)
     Toolbar toolbar;
     @BindView(R.id.drawer_layout)
@@ -101,7 +103,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 //        BottomNavigationViewHelper.disableShiftMode(navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         fragmentTransaction.add(R.id.fragment_container, DimmingSettingFragment.newInstance()).commit();
-        pageTitle.setText("디밍설정");
+        pageTitleText.setText("디밍설정");
 
         String RememberPath = RememberData.getInstance().getSavefilepath().toString();
         if (RememberPath == "NULL" || RememberPath.equals("NULL")) {
@@ -224,11 +226,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             switch (item.getItemId()) {
                 case R.id.tab1:
                     replaceFragment(DimmingSettingFragment.newInstance());
-                    pageTitle.setText("디밍설정");
+                    pageTitleText.setText("디밍 설정");
                     return true;
                 case R.id.tab2:
                     replaceFragment(MaintenanceFragment.newInstance());
-                    pageTitle.setText("개별설정");
+                    pageTitleText.setText("개별 설정");
                     return true;
 //                case R.id.tab3:
 //                    replaceFragment(MaintenanceFragment.newInstance());

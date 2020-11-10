@@ -54,7 +54,6 @@ public class MaintenanceFragment extends Fragment {
     Spinner sp_Maintain_Sensitivity;
     @BindView(R.id.btn_Maintain_Single_Setting)
     Button btn_Maintain_Single_Setting;
-    //endregion
 
     private List<String> ledGroupMap;
     private final static String TAG = "JHLEE_TAG";

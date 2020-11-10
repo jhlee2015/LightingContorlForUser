@@ -144,11 +144,14 @@ public class LoginActivity extends AppCompatActivity {
 //                        Toast.makeText(getApplicationContext(), "로그인 성공하였습니다.", Toast.LENGTH_SHORT).show();
 
                         PreferenceManager.setLong(getApplicationContext(), "apartmentId", apartment.getId());
+                        PreferenceManager.setString(getApplicationContext(), "apartmentName", apartment.getName());
 
                         Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                         startActivity(intent);
                         overridePendingTransition(R.anim.fadein, R.anim.fadeout);
                         finish();
+                    } else {
+                        Toast.makeText(getApplicationContext(), "비밀번호를 잘 못 입력하였습니다!", Toast.LENGTH_SHORT).show();
                     }
                 }
 
