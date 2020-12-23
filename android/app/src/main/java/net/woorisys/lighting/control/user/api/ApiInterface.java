@@ -3,6 +3,7 @@ package net.woorisys.lighting.control.user.api;
 import net.woorisys.lighting.control.user.domain.Apartment;
 import net.woorisys.lighting.control.user.domain.City;
 import net.woorisys.lighting.control.user.domain.Floor;
+import net.woorisys.lighting.control.user.domain.User;
 
 import java.util.HashMap;
 import java.util.List;
@@ -27,5 +28,5 @@ public interface ApiInterface {
 
     @FormUrlEncoded
     @POST("api/login")
-    Call<Boolean> login(@FieldMap HashMap<String, Object> param);
+    Call<User> login(@FieldMap HashMap<String, Object> param);
 }

@@ -15,7 +15,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".MainActivity"></activity>
+        <activity android:name=".LoginActivity2"></activity>
+        <activity android:name=".MainActivity" />
 
         <receiver
             android:name=".sjp.UsbManagement"
@@ -35,16 +36,6 @@
         <activity
             android:name=".SplashActivity"
             android:launchMode="singleInstance">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <action android:name="android.hardware.usb.action.USB_DEVICE_ATTACHED" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-
-            <meta-data
-                android:name="android.hardware.usb.action.USB_DEVICE_ATTACHED"
-                android:resource="@xml/device_filter" />
         </activity>
         <activity
             android:name=".dongle.ConnectDongleActivity"
@@ -60,7 +51,18 @@
             android:theme="@style/AppTheme" />
         <activity
             android:name=".LoginActivity"
-            android:launchMode="singleInstance" />
+            android:launchMode="singleInstance">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.hardware.usb.action.USB_DEVICE_ATTACHED" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.hardware.usb.action.USB_DEVICE_ATTACHED"
+                android:resource="@xml/device_filter" />
+        </activity>
     </application>
 
 </manifest>

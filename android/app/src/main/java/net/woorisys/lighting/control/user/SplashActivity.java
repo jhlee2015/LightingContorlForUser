@@ -6,14 +6,18 @@ import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import net.woorisys.lighting.control.user.fragment.BaseActivity;
+import net.woorisys.lighting.control.user.manager.PreferenceManager;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class SplashActivity extends AppCompatActivity {
 
+    @BindView(R.id.nameText)
+    TextView nameText;
     @BindView(R.id.light)
     ImageView lightImage;
 
@@ -22,6 +26,11 @@ public class SplashActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
         ButterKnife.bind(SplashActivity.this);
+
+        String cityName = PreferenceManager.getString(getApplicationContext(), "cityName");
+        String apartmentName = PreferenceManager.getString(getApplicationContext(), "apartmentName");
+
+        nameText.setText(cityName + " " + apartmentName);
 
         new Handler().postDelayed(new Runnable() {
             @Override
@@ -37,7 +46,7 @@ public class SplashActivity extends AppCompatActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                 startActivity(intent);
                 overridePendingTransition(R.anim.fadein, R.anim.fadeout);
                 finish();
