@@ -1,18 +1,23 @@
 package net.woorisys.lighting.control.user.fragment;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Point;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
 import android.util.Log;
+import android.util.TypedValue;
+import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 
 import net.woorisys.lighting.control.user.R;
@@ -55,8 +60,16 @@ public class MaintenanceFragment extends Fragment {
     @BindView(R.id.btn_Maintain_Single_Setting)
     Button btn_Maintain_Single_Setting;
 
-    private List<String> ledGroupMap;
-    private final static String TAG = "JHLEE_TAG";
+    @BindView(R.id.minLightLayout)
+    LinearLayout minLightLayout;
+    @BindView(R.id.lightMaintainLayout)
+    LinearLayout lightMaintainLayout;
+    @BindView(R.id.lightOnLayout)
+    LinearLayout lightOnLayout;
+    @BindView(R.id.lightOffLayout)
+    LinearLayout lightOffLayout;
+    @BindView(R.id.levelLayout)
+    LinearLayout levelLayout;
 
     private EditTextErrorCheckSingle errorCheck;
 
@@ -85,7 +98,6 @@ public class MaintenanceFragment extends Fragment {
     }
 
     private void setUISetting() {
-
         String[] sensitivityLevel = {"0", "1", "2", "3", "4", "5", "6", "7"};
 
         ArrayAdapter<String> sensitivityLevelAdapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_dropdown_item_1line, sensitivityLevel);
@@ -102,6 +114,49 @@ public class MaintenanceFragment extends Fragment {
         btn_maintain_setting.setOnClickListener(v -> settingConfirm());
 
         btn_Maintain_Single_Setting.setOnClickListener(v -> singleSetting());
+
+        float dp = 0f;
+
+        Point screenSize  = getScreenSize(getActivity());
+        if (screenSize.y > 2400) {
+            dp = 16;
+        } else if (screenSize.y > 2000) {
+            dp = 12;
+        } else if (screenSize.y > 1600) {
+            dp = 8;
+        }  else if (screenSize.y > 1400) {
+            dp = 4;
+        } else {
+            dp = 0;
+        }
+
+        LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) minLightLayout.getLayoutParams();
+        layoutParams.topMargin = dpToPx(dp);
+
+        minLightLayout.setLayoutParams(layoutParams);
+        lightMaintainLayout.setLayoutParams(layoutParams);
+        lightOnLayout.setLayoutParams(layoutParams);
+        lightOffLayout.setLayoutParams(layoutParams);
+
+        layoutParams = (LinearLayout.LayoutParams) levelLayout.getLayoutParams();
+        layoutParams.topMargin = dpToPx(dp + 4);
+        layoutParams.bottomMargin = dpToPx(84);
+        levelLayout.setLayoutParams(layoutParams);
+
+//        Log.d("MaintenanceFragment", getScreenSize(getActivity()) + "," + dpToPx(dp));
+    }
+
+    private Point getScreenSize(Activity activity) {
+        Display display = activity.getWindowManager().getDefaultDisplay();
+        Point size = new Point();
+        display.getSize(size);
+        return  size;
+    }
+
+    private int dpToPx(float dp) {
+        int px = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp,
+                getContext().getResources().getDisplayMetrics());
+        return px;
     }
 
     private void lightOn() {

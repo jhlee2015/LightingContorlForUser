@@ -1,16 +1,21 @@
 package net.woorisys.lighting.control.user.fragment;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Point;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.Dimension;
 import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
 import android.util.Log;
+import android.util.TypedValue;
+import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,6 +37,8 @@ import net.woorisys.lighting.control.user.manager.PreferenceManager;
 import net.woorisys.lighting.control.user.sjp.EditTextErrorCheck;
 import net.woorisys.lighting.control.user.sjp.classmanagement.LightSetting;
 import net.woorisys.lighting.control.user.sjp.UsbManagement;
+
+import org.w3c.dom.Text;
 
 import java.util.List;
 
@@ -109,7 +116,7 @@ public class DimmingSettingFragment extends Fragment {
 
                 @Override
                 public void onFailure(Call<List<Floor>> call, Throwable t) {
-                    Log.d("LoginActivity", t.getMessage());
+                    Log.d("DimmingSettingFragment", t.getMessage());
                     Toast.makeText(getContext(), "층 데이터 조회를 실패하였습니다.", Toast.LENGTH_SHORT).show();
                 }
             });

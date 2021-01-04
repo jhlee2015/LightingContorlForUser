@@ -15,7 +15,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".LoginActivity2"></activity>
+        <activity android:name=".LoginActivity2" />
         <activity android:name=".MainActivity" />
 
         <receiver
@@ -35,8 +35,7 @@
 
         <activity
             android:name=".SplashActivity"
-            android:launchMode="singleInstance">
-        </activity>
+            android:launchMode="singleInstance"></activity>
         <activity
             android:name=".dongle.ConnectDongleActivity"
             android:launchMode="singleInstance" />
