@@ -44,6 +44,7 @@ import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -113,7 +114,8 @@ public class DimmingSettingFragment extends Fragment {
                 @Override
                 public void onResponse(Call<List<Floor>> call, Response<List<Floor>> response) {
                     List<Floor> floors = response.body();
-                    FloorAdapter floorAdapter = new FloorAdapter(getContext(),android.R.layout.simple_list_item_1, floors);
+                    FloorAdapter floorAdapter = new FloorAdapter(getContext(), floors);
+                    channelSpinner.setAdapter(floorAdapter);
 
 //                    floorAdapter.getCount();
 //                    String[] sensitivityLevel = new String[floorAdapter.getCount()];
@@ -123,11 +125,7 @@ public class DimmingSettingFragment extends Fragment {
 //                    }
 //
 //                    ArrayAdapter<String> sensitivityLevelAdapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_dropdown_item_1line, sensitivityLevel);
-//
 //                    channelSpinner.setAdapter(sensitivityLevelAdapter);
-
-                    channelSpinner.setAdapter(floorAdapter);
-
                 }
 
                 @Override
@@ -140,7 +138,6 @@ public class DimmingSettingFragment extends Fragment {
     }
 
     private void setUISetting() {
-
         errorCheck = new EditTextErrorCheck();
 
         settingSendBtn.setOnClickListener(v -> settingSend());

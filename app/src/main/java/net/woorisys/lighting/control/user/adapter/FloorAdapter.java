@@ -1,12 +1,9 @@
 package net.woorisys.lighting.control.user.adapter;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
@@ -14,10 +11,9 @@ import net.woorisys.lighting.control.user.R;
 import net.woorisys.lighting.control.user.domain.Apartment;
 import net.woorisys.lighting.control.user.domain.Floor;
 
-import java.util.ArrayList;
 import java.util.List;
 
-public class FloorAdapter extends ArrayAdapter<Floor> {
+public class FloorAdapter extends BaseAdapter {
 
     private Context context;
 
@@ -25,17 +21,20 @@ public class FloorAdapter extends ArrayAdapter<Floor> {
 
     private List<Floor> floors;
 
-    public FloorAdapter(Context context, int resorce, List<Floor> floors) {
-        super(context,resorce,floors);
+    public FloorAdapter(Context context, List<Floor> floors) {
         this.context = context;
         this.floors = floors;
-//        layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
-
 
     @Override
     public int getCount() {
         return floors.size();
+    }
+
+    @Override
+    public Object getItem(int position) {
+        return floors.get(position);
     }
 
     @Override
@@ -46,21 +45,13 @@ public class FloorAdapter extends ArrayAdapter<Floor> {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         if (convertView == null) {
-            //convertView = layoutInflater.inflate(R.layout.spinner_custom, parent, false);
-            convertView = LayoutInflater.from(getContext()).inflate(R.layout.spinner_custom, parent, false);
+            convertView = layoutInflater.inflate(R.layout.spinner_custom, parent, false);
         }
 
-        Floor f = getItem(position);
-        TextView spinnerText = convertView.findViewById(R.id.spinnerText);
-        spinnerText.setText(f.getName());
-
-        Log.d("JHLEE","Name : "+f.getName());
-
-
-//        if (floors != null) {
-//            String text = floors.get(position).getName();
-//            ((TextView) convertView.findViewById(R.id.spinnerText)).setText(text);
-//        }
+        if (floors != null) {
+            String text = floors.get(position).getName();
+            ((TextView) convertView.findViewById(R.id.spinnerText)).setText(text);
+        }
 
         return convertView;
     }

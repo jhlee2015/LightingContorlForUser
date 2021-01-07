@@ -10,9 +10,13 @@
     <TextView
         android:id="@+id/spinnerText"
         android:layout_width="wrap_content"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="40dp"
         android:gravity="center"
         android:textColor="#000"
         android:textColorHint="#1f000000"
-        android:textSize="16sp" />
+        android:textSize="16sp"
+        style="?android:attr/spinnerItemStyle"
+        android:layout_marginTop="4dp"
+        android:layout_marginBottom="4dp"/>
 </LinearLayout>
