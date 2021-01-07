@@ -51,8 +51,8 @@ public class FloorAdapter extends ArrayAdapter<Floor> {
         }
 
         Floor f = getItem(position);
-        TextView name = convertView.findViewById(R.id.spinnerText);
-        name.setText(f.getName());
+        TextView spinnerText = convertView.findViewById(R.id.spinnerText);
+        spinnerText.setText(f.getName());
 
         Log.d("JHLEE","Name : "+f.getName());
 

@@ -19,6 +19,8 @@ import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Adapter;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -111,7 +113,7 @@ public class DimmingSettingFragment extends Fragment {
                 @Override
                 public void onResponse(Call<List<Floor>> call, Response<List<Floor>> response) {
                     List<Floor> floors = response.body();
-                    FloorAdapter floorAdapter = new FloorAdapter(getContext(),android.R.layout.simple_dropdown_item_1line, floors);
+                    FloorAdapter floorAdapter = new FloorAdapter(getContext(),android.R.layout.simple_list_item_1, floors);
 
 //                    floorAdapter.getCount();
 //                    String[] sensitivityLevel = new String[floorAdapter.getCount()];
@@ -125,6 +127,7 @@ public class DimmingSettingFragment extends Fragment {
 //                    channelSpinner.setAdapter(sensitivityLevelAdapter);
 
                     channelSpinner.setAdapter(floorAdapter);
+
                 }
 
                 @Override
