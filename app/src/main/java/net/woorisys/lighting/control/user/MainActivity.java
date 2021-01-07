@@ -45,8 +45,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     Toolbar toolbar;
     @BindView(R.id.drawer_layout)
     DrawerLayout drawer;
-    @BindView(R.id.nav_view)
-    NavigationView navigationView;
+    //@BindView(R.id.nav_view)
+    //NavigationView navigationView;
     @BindView(R.id.txt_Path)
     TextView txt_FilePath_Whole;
     @BindView(R.id.txt_Path_)
@@ -71,12 +71,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     private void setupUI() {
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.addDrawerListener(toggle);
-        toggle.syncState();
+//        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+//                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+//        drawer.addDrawerListener(toggle);
+//        toggle.syncState();
 
-        navigationView.setNavigationItemSelectedListener(this);
+        //navigationView.setNavigationItemSelectedListener(this);
 
         //region IntentFilter
         // USB 동작 관련 BroadcastReceiver

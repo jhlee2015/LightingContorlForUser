@@ -19,7 +19,6 @@ import net.woorisys.lighting.control.user.api.ApiInterface;
 import net.woorisys.lighting.control.user.api.HttpClient;
 import net.woorisys.lighting.control.user.domain.Apartment;
 import net.woorisys.lighting.control.user.domain.City;
-import net.woorisys.lighting.control.user.fragment.BaseActivity;
 import net.woorisys.lighting.control.user.manager.PreferenceManager;
 
 import java.util.HashMap;

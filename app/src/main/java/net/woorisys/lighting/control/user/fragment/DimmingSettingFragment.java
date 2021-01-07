@@ -19,6 +19,8 @@ import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Adapter;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -40,6 +42,7 @@ import net.woorisys.lighting.control.user.sjp.UsbManagement;
 
 import org.w3c.dom.Text;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -110,8 +113,21 @@ public class DimmingSettingFragment extends Fragment {
                 @Override
                 public void onResponse(Call<List<Floor>> call, Response<List<Floor>> response) {
                     List<Floor> floors = response.body();
-                    FloorAdapter floorAdapter = new FloorAdapter(getContext(), floors);
+                    FloorAdapter floorAdapter = new FloorAdapter(getContext(),android.R.layout.simple_list_item_1, floors);
+
+//                    floorAdapter.getCount();
+//                    String[] sensitivityLevel = new String[floorAdapter.getCount()];
+//
+//                    for(int i=0;i<floorAdapter.getCount();i++){
+//                        sensitivityLevel[i] = floors.get(i).getName();
+//                    }
+//
+//                    ArrayAdapter<String> sensitivityLevelAdapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_dropdown_item_1line, sensitivityLevel);
+//
+//                    channelSpinner.setAdapter(sensitivityLevelAdapter);
+
                     channelSpinner.setAdapter(floorAdapter);
+
                 }
 
                 @Override
@@ -124,6 +140,7 @@ public class DimmingSettingFragment extends Fragment {
     }
 
     private void setUISetting() {
+
         errorCheck = new EditTextErrorCheck();
 
         settingSendBtn.setOnClickListener(v -> settingSend());
