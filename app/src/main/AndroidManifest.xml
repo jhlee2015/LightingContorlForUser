@@ -39,10 +39,7 @@
         <activity
             android:name=".dongle.ConnectDongleActivity"
             android:launchMode="singleInstance" />
-        <activity
-            android:name=".fragment.BaseActivity"
-            android:label="@string/title_activity_base"
-            android:launchMode="singleInstance" />
+
         <activity
             android:name=".search.SearchActivity"
             android:label="@string/title_activity_search"

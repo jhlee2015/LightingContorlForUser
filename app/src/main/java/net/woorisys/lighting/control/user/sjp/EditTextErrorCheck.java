@@ -118,8 +118,6 @@ public class EditTextErrorCheck {
                     public void run() {
                         if (timer_sec == 0) {
                             dialog.cancel();
-                        } else if (timer_sec == 1) {
-                            dialog.setMessage("설정을 정상적으로 완료 하였습니다.");
                         } else {
                             dialog.setMessage("설정 하는 중 " + timer_sec + "초 남음");
                         }

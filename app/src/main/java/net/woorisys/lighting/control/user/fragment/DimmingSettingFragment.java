@@ -40,6 +40,7 @@ import net.woorisys.lighting.control.user.sjp.UsbManagement;
 
 import org.w3c.dom.Text;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -112,18 +113,18 @@ public class DimmingSettingFragment extends Fragment {
                     List<Floor> floors = response.body();
                     FloorAdapter floorAdapter = new FloorAdapter(getContext(),android.R.layout.simple_dropdown_item_1line, floors);
 
-                    floorAdapter.getCount();
-                    String[] sensitivityLevel = new String[floorAdapter.getCount()];
+//                    floorAdapter.getCount();
+//                    String[] sensitivityLevel = new String[floorAdapter.getCount()];
+//
+//                    for(int i=0;i<floorAdapter.getCount();i++){
+//                        sensitivityLevel[i] = floors.get(i).getName();
+//                    }
+//
+//                    ArrayAdapter<String> sensitivityLevelAdapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_dropdown_item_1line, sensitivityLevel);
+//
+//                    channelSpinner.setAdapter(sensitivityLevelAdapter);
 
-                    for(int i=0;i<floorAdapter.getCount();i++){
-                        sensitivityLevel[i] = floors.get(i).getName();
-                    }
-
-                    ArrayAdapter<String> sensitivityLevelAdapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_dropdown_item_1line, sensitivityLevel);
-
-                    channelSpinner.setAdapter(sensitivityLevelAdapter);
-
-                    //channelSpinner.setAdapter(floorAdapter);
+                    channelSpinner.setAdapter(floorAdapter);
                 }
 
                 @Override
@@ -136,7 +137,6 @@ public class DimmingSettingFragment extends Fragment {
     }
 
     private void setUISetting() {
-
 
         errorCheck = new EditTextErrorCheck();
 
