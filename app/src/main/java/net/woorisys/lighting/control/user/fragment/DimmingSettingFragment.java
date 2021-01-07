@@ -110,8 +110,20 @@ public class DimmingSettingFragment extends Fragment {
                 @Override
                 public void onResponse(Call<List<Floor>> call, Response<List<Floor>> response) {
                     List<Floor> floors = response.body();
-                    FloorAdapter floorAdapter = new FloorAdapter(getContext(), floors);
-                    channelSpinner.setAdapter(floorAdapter);
+                    FloorAdapter floorAdapter = new FloorAdapter(getContext(),android.R.layout.simple_dropdown_item_1line, floors);
+
+                    floorAdapter.getCount();
+                    String[] sensitivityLevel = new String[floorAdapter.getCount()];
+
+                    for(int i=0;i<floorAdapter.getCount();i++){
+                        sensitivityLevel[i] = floors.get(i).getName();
+                    }
+
+                    ArrayAdapter<String> sensitivityLevelAdapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_dropdown_item_1line, sensitivityLevel);
+
+                    channelSpinner.setAdapter(sensitivityLevelAdapter);
+
+                    //channelSpinner.setAdapter(floorAdapter);
                 }
 
                 @Override
@@ -124,6 +136,8 @@ public class DimmingSettingFragment extends Fragment {
     }
 
     private void setUISetting() {
+
+
         errorCheck = new EditTextErrorCheck();
 
         settingSendBtn.setOnClickListener(v -> settingSend());

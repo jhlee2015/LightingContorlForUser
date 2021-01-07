@@ -1,9 +1,11 @@
 package net.woorisys.lighting.control.user.adapter;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
@@ -13,7 +15,7 @@ import net.woorisys.lighting.control.user.domain.Floor;
 
 import java.util.List;
 
-public class FloorAdapter extends BaseAdapter {
+public class FloorAdapter extends ArrayAdapter {
 
     private Context context;
 
@@ -21,11 +23,13 @@ public class FloorAdapter extends BaseAdapter {
 
     private List<Floor> floors;
 
-    public FloorAdapter(Context context, List<Floor> floors) {
+    public FloorAdapter(Context context, int resorce, List<Floor> floors) {
+        super(context,resorce);
         this.context = context;
         this.floors = floors;
         layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
+
 
     @Override
     public int getCount() {
