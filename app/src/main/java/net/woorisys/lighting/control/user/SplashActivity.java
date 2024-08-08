@@ -11,21 +11,21 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import net.woorisys.lighting.control.user.manager.PreferenceManager;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
 
 public class SplashActivity extends AppCompatActivity {
 
-    @BindView(R.id.nameText)
     TextView nameText;
-    @BindView(R.id.light)
     ImageView lightImage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
-        ButterKnife.bind(SplashActivity.this);
+//        ButterKnife.bind(SplashActivity.this);
+
+        /* 레이아웃 지정 */
+        nameText = findViewById(R.id.nameText);
+        lightImage = findViewById(R.id.light);
 
         String cityName = PreferenceManager.getString(getApplicationContext(), "cityName");
         String apartmentName = PreferenceManager.getString(getApplicationContext(), "apartmentName");

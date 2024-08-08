@@ -25,21 +25,15 @@ import net.woorisys.lighting.control.user.manager.PreferenceManager;
 import java.util.HashMap;
 import java.util.List;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 public class LoginActivity2 extends AppCompatActivity {
 
-    @BindView(R.id.citySpinner)
     Spinner citySpinner;
-    @BindView(R.id.apartmentSpinner)
     Spinner apartmentSpinner;
-    @BindView(R.id.passwordTxt)
     EditText passwordTxt;
-    @BindView(R.id.loginBtn)
     Button loginButton;
 
     private ApiInterface api;
@@ -50,7 +44,13 @@ public class LoginActivity2 extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login2);
-        ButterKnife.bind(this);
+//        ButterKnife.bind(this);
+
+        /* 레이아웃 지정 */
+        citySpinner = findViewById(R.id.citySpinner);
+        apartmentSpinner = findViewById(R.id.apartmentSpinner);
+        passwordTxt = findViewById(R.id.passwordTxt);
+        loginButton = findViewById(R.id.loginBtn);
 
         setUISetting();
 

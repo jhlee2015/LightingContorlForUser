@@ -27,49 +27,28 @@ import net.woorisys.lighting.control.user.sjp.EditTextErrorCheckSingle;
 import net.woorisys.lighting.control.user.sjp.classmanagement.MaintenanceSetting;
 import net.woorisys.lighting.control.user.sjp.UsbManagement;
 
-import java.util.List;
-
-import butterknife.BindView;
-import butterknife.ButterKnife;
-
 public class MaintenanceFragment extends Fragment {
 
     // Text MacId
-    @BindView(R.id.et_macID)
     EditText macID;
     // On Button
-    @BindView(R.id.btn_maintain_on)
     Button btn_maintain_on;
     // Off Button
-    @BindView(R.id.btn_maintain_off)
     Button btn_maintain_off;
     // Setting
-    @BindView(R.id.btn_Maintain_Setting)
     Button btn_maintain_setting;
-    @BindView(R.id.et_Maintain_MaxLight)
     EditText et_Maintain_MaxLight;
-    @BindView(R.id.et_Maintain_MinLight)
     EditText et_Maintain_MinLight;
-    @BindView(R.id.et_Maintain_LightOn)
     EditText et_Maintain_OnLight;
-    @BindView(R.id.et_Maintain_LightOff)
     EditText et_Maintain_OffLight;
-    @BindView(R.id.et_Maintain_LightMaintain)
     EditText et_Maintain_MaintainLight;
-    @BindView(R.id.sensitivity_level_sp)
     Spinner sp_Maintain_Sensitivity;
-    @BindView(R.id.btn_Maintain_Single_Setting)
     Button btn_Maintain_Single_Setting;
 
-    @BindView(R.id.minLightLayout)
     LinearLayout minLightLayout;
-    @BindView(R.id.lightMaintainLayout)
     LinearLayout lightMaintainLayout;
-    @BindView(R.id.lightOnLayout)
     LinearLayout lightOnLayout;
-    @BindView(R.id.lightOffLayout)
     LinearLayout lightOffLayout;
-    @BindView(R.id.levelLayout)
     LinearLayout levelLayout;
 
     private EditTextErrorCheckSingle errorCheck;
@@ -90,7 +69,24 @@ public class MaintenanceFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_maintenance, container, false);
-        ButterKnife.bind(this, view);
+//        ButterKnife.bind(this, view);
+
+        macID = view.findViewById(R.id.et_macID);
+        btn_maintain_on = view.findViewById(R.id.btn_maintain_on);
+        btn_maintain_off = view.findViewById(R.id.btn_maintain_off);
+        btn_maintain_setting = view.findViewById(R.id.btn_Maintain_Setting);
+        et_Maintain_MaxLight = view.findViewById(R.id.et_Maintain_MaxLight);
+        et_Maintain_MinLight = view.findViewById(R.id.et_Maintain_MinLight);
+        et_Maintain_OnLight = view.findViewById(R.id.et_Maintain_LightOn);
+        et_Maintain_OffLight = view.findViewById(R.id.et_Maintain_LightOff);
+        et_Maintain_MaintainLight = view.findViewById(R.id.et_Maintain_LightMaintain);
+        sp_Maintain_Sensitivity = view.findViewById(R.id.sensitivity_level_sp);
+        btn_Maintain_Single_Setting = view.findViewById(R.id.btn_Maintain_Single_Setting);
+        minLightLayout = view.findViewById(R.id.minLightLayout);
+        lightMaintainLayout = view.findViewById(R.id.lightMaintainLayout);
+        lightOnLayout = view.findViewById(R.id.lightOnLayout);
+        lightOffLayout = view.findViewById(R.id.lightOffLayout);
+        levelLayout = view.findViewById(R.id.levelLayout);
 
         errorCheck = new EditTextErrorCheckSingle();
         setUISetting();

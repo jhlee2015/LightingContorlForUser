@@ -22,10 +22,7 @@ import net.woorisys.lighting.control.user.domain.User;
 import net.woorisys.lighting.control.user.manager.PreferenceManager;
 
 import java.util.HashMap;
-import java.util.List;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -34,11 +31,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class LoginActivity extends AppCompatActivity {
 
-    @BindView(R.id.idTxt)
     EditText idTxt;
-    @BindView(R.id.passwordTxt)
     EditText passwordTxt;
-    @BindView(R.id.loginBtn)
     Button loginButton;
 
     private ApiInterface api;
@@ -49,7 +43,12 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        ButterKnife.bind(this);
+//        ButterKnife.bind(this);
+
+        /* 레이아웃 지정 */
+        idTxt = findViewById(R.id.idTxt);
+        passwordTxt = findViewById(R.id.passwordTxt);
+        loginButton = findViewById(R.id.loginBtn);
 
         setUISetting();
 

@@ -33,25 +33,18 @@ import net.woorisys.lighting.control.user.sjp.UsbManagement;
 import net.woorisys.lighting.control.user.sjp.observer.FragmentListener;
 import net.woorisys.lighting.control.user.sjp.observer.FragmentValue;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, FragmentListener {
 
     //Log Tag 구분 하기 위한 String
     private final static String TAG = "MainActivity";
 
-    @BindView(R.id.page_title)
     TextView pageTitleText;
-    @BindView(R.id.toolbar)
     Toolbar toolbar;
-    @BindView(R.id.drawer_layout)
     DrawerLayout drawer;
     //@BindView(R.id.nav_view)
     //NavigationView navigationView;
-    @BindView(R.id.txt_Path)
     TextView txt_FilePath_Whole;
-    @BindView(R.id.txt_Path_)
     TextView getTxt_FilePath_Whole;
 
     // 생성한 Broadcast Action 동작 시키기 위한 BroadcastReceiver 등록
@@ -66,7 +59,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        ButterKnife.bind(this);
+//        ButterKnife.bind(this);
+
+        /* 레이아웃 지정 */
+        pageTitleText = findViewById(R.id.page_title);
+        toolbar = findViewById(R.id.toolbar);
+        drawer = findViewById(R.id.drawer_layout);
+        txt_FilePath_Whole = findViewById(R.id.txt_Path);
+        getTxt_FilePath_Whole = findViewById(R.id.txt_Path_);
 
 //        setSupportActionBar(toolbar);
         setupUI();

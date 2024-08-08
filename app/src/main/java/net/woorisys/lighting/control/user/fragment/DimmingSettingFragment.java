@@ -43,8 +43,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -54,21 +52,13 @@ import androidx.fragment.app.Fragment;
 
 public class DimmingSettingFragment extends Fragment {
 
-    @BindView(R.id.et_maxLight)
     EditText maxLightEdit;
-    @BindView(R.id.et_minLight)
     EditText minLightEdit;
-    @BindView(R.id.et_onDemming)
     EditText onDemmingEdit;
-    @BindView(R.id.et_offDeming)
     EditText offDemmingEdit;
-    @BindView(R.id.et_maintainDemming)
     EditText maintainDemmingEdit;
-    @BindView(R.id.btn_Setting_Send)
     Button settingSendBtn;
-    @BindView(R.id.btn_channel_send)
     Button channelSendBtn;
-    @BindView(R.id.channel_id_sp)
     Spinner channelSpinner;
 
     private EditTextErrorCheck errorCheck;
@@ -89,6 +79,7 @@ public class DimmingSettingFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
     }
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
@@ -98,7 +89,16 @@ public class DimmingSettingFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_demming_setting, container, false);
-        ButterKnife.bind(this, view);
+//        ButterKnife.bind(this, view);
+
+        maxLightEdit = view.findViewById(R.id.et_maxLight);
+        minLightEdit = view.findViewById(R.id.et_minLight);
+        onDemmingEdit = view.findViewById(R.id.et_onDemming);
+        offDemmingEdit = view.findViewById(R.id.et_offDeming);
+        maintainDemmingEdit = view.findViewById(R.id.et_maintainDemming);
+        settingSendBtn = view.findViewById(R.id.btn_Setting_Send);
+        channelSendBtn = view.findViewById(R.id.btn_channel_send);
+        channelSpinner = view.findViewById(R.id.channel_id_sp);
 
         getFloorList();
         setUISetting();
