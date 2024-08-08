@@ -1,11 +1,12 @@
 package net.woorisys.lighting.control.user.dongle;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import net.woorisys.lighting.control.user.R;
 import net.woorisys.lighting.control.user.search.SearchActivity;
@@ -13,6 +14,8 @@ import net.woorisys.lighting.control.user.search.SearchActivity;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 public class ConnectDongleActivity extends AppCompatActivity {
 

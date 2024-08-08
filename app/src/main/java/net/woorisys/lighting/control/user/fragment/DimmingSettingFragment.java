@@ -10,9 +10,6 @@ import android.content.SharedPreferences;
 import android.graphics.Point;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.Dimension;
-import android.support.annotation.RequiresApi;
-import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.Display;
@@ -51,6 +48,9 @@ import butterknife.ButterKnife;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+
+import androidx.annotation.RequiresApi;
+import androidx.fragment.app.Fragment;
 
 public class DimmingSettingFragment extends Fragment {
 

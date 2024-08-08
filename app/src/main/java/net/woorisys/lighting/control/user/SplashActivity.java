@@ -3,10 +3,11 @@ package net.woorisys.lighting.control.user;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Handler;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import net.woorisys.lighting.control.user.manager.PreferenceManager;
 
