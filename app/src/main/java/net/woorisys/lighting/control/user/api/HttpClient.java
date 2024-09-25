@@ -16,8 +16,8 @@ public class HttpClient {
     // Http 통신을 위한 Retrofit 객체반환
     public static Retrofit getRetrofit() {
         if (retrofit == null) {
-//            String baseUrl = String.format("http://%s:%s/lighting/", IP, PORT);
-            String baseUrl = String.format("http://%s:%s/LightingControl/", IP, PORT);
+            String baseUrl = String.format("http://%s:%s/lighting/", IP, PORT);
+//            String baseUrl = String.format("http://%s:%s/LightingControl/", IP, PORT);
 
             Retrofit.Builder builder = new Retrofit.Builder()
                 .baseUrl(baseUrl)

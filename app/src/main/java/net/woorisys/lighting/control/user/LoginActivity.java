@@ -87,7 +87,7 @@ public class LoginActivity extends AppCompatActivity {
                 User user = response.body();
                 Log.d("LoginActivity", user + "");
                 if (user != null) {
-//                        Toast.makeText(getApplicationContext(), "로그인 성공하였습니다.", Toast.LENGTH_SHORT).show();
+                   Toast.makeText(getApplicationContext(), "로그인 성공하였습니다.", Toast.LENGTH_SHORT).show();
 
                     PreferenceManager.setString(getApplicationContext(), "userId", user.getUserId());
                     PreferenceManager.setString(getApplicationContext(), "cityName", user.getCity().getName());

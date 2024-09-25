@@ -2,6 +2,7 @@ package net.woorisys.lighting.control.user;
 
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.os.Build;
 import android.os.Bundle;
 
 import android.util.Log;
@@ -129,7 +130,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         if (broadcastReceiver == null) {
             broadcastReceiver = new UsbManagement();
             broadcastReceiver.setListener(this);
-            registerReceiver(broadcastReceiver, intentFilter);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                registerReceiver(broadcastReceiver, intentFilter, RECEIVER_EXPORTED);
+            }else
+            {
+                registerReceiver(broadcastReceiver, intentFilter);
+            }
         }
     }
 

@@ -41,7 +41,7 @@ public class SplashActivity extends AppCompatActivity {
                     lightImage.setImageDrawable(getResources().getDrawable(R.drawable.bulb_on_set_with_app_name));
                 }
             }
-        }, 3000);// 0.5초 정도 딜레이를 준 후 시작
+        }, 1000);// 0.5초 정도 딜레이를 준 후 시작
 
         new Handler().postDelayed(new Runnable() {
             @Override
