@@ -99,7 +99,7 @@ public class LoginActivity extends AppCompatActivity {
                     overridePendingTransition(R.anim.fadein, R.anim.fadeout);
                     finish();
                 } else {
-                    Toast.makeText(getApplicationContext(), "비밀번호를 잘 못 입력하였습니다!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "비밀번호를 잘못 입력하였습니다!", Toast.LENGTH_SHORT).show();
                 }
             }
 
